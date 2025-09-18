@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Navbar from '@/components/navbar'
 import { 
   Shield,
   User,
@@ -136,7 +137,7 @@ export default function SignupPage() {
               type="text"
               value={formData.name}
               onChange={(e) => handleInputChange('name', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
               placeholder="Enter your full name"
               required
             />
@@ -153,7 +154,7 @@ export default function SignupPage() {
               type="tel"
               value={formData.phoneNumber}
               onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
               placeholder="Enter your phone number"
               required
             />
@@ -170,7 +171,7 @@ export default function SignupPage() {
               type="email"
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
               placeholder="Enter your email (optional)"
             />
           </div>
@@ -198,7 +199,7 @@ export default function SignupPage() {
               type="text"
               value={formData.aadharNumber}
               onChange={(e) => handleInputChange('aadharNumber', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
               placeholder="Enter your Aadhar number"
               required
             />
@@ -215,7 +216,7 @@ export default function SignupPage() {
               type="text"
               value={formData.hometown}
               onChange={(e) => handleInputChange('hometown', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
               placeholder="Enter your hometown"
               required
             />
@@ -231,7 +232,7 @@ export default function SignupPage() {
             <textarea
               value={formData.hometownAddress}
               onChange={(e) => handleInputChange('hometownAddress', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[80px] resize-none"
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all min-h-[80px] resize-none"
               placeholder="Enter your hometown address"
               required
             />
@@ -247,7 +248,7 @@ export default function SignupPage() {
             <textarea
               value={formData.keralaAddress}
               onChange={(e) => handleInputChange('keralaAddress', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[80px] resize-none"
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all min-h-[80px] resize-none"
               placeholder="Enter your current address in Kerala"
               required
             />
@@ -276,7 +277,7 @@ export default function SignupPage() {
               type="text"
               value={formData.nomineeName}
               onChange={(e) => handleInputChange('nomineeName', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
               placeholder="Enter nominee's full name"
               required
             />
@@ -293,7 +294,7 @@ export default function SignupPage() {
               type="tel"
               value={formData.nomineePhone}
               onChange={(e) => handleInputChange('nomineePhone', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
               placeholder="Enter nominee's phone number"
               required
             />
@@ -309,7 +310,7 @@ export default function SignupPage() {
             <textarea
               value={formData.nomineeAddress}
               onChange={(e) => handleInputChange('nomineeAddress', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[100px] resize-none"
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all min-h-[100px] resize-none"
               placeholder="Enter nominee's complete address"
               required
             />
@@ -337,7 +338,7 @@ export default function SignupPage() {
             <textarea
               value={formData.illnesses}
               onChange={(e) => handleInputChange('illnesses', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[80px] resize-none"
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all min-h-[80px] resize-none"
               placeholder="List any current illnesses or health conditions"
             />
           </div>
@@ -352,7 +353,7 @@ export default function SignupPage() {
             <textarea
               value={formData.allergies}
               onChange={(e) => handleInputChange('allergies', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[80px] resize-none"
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all min-h-[80px] resize-none"
               placeholder="List any known allergies"
             />
           </div>
@@ -367,7 +368,7 @@ export default function SignupPage() {
             <textarea
               value={formData.currentMedications}
               onChange={(e) => handleInputChange('currentMedications', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[80px] resize-none"
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all min-h-[80px] resize-none"
               placeholder="List any medications you're currently taking"
             />
           </div>
@@ -390,7 +391,7 @@ export default function SignupPage() {
       </p>
       <button
         onClick={handleLoginRedirect}
-        className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3 rounded-2xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+        className="bg-gradient-to-r from-slate-600 to-slate-700 text-white px-8 py-3 rounded-2xl font-semibold hover:from-slate-700 hover:to-slate-800 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
       >
         Sign In to Your Account
       </button>
@@ -398,131 +399,134 @@ export default function SignupPage() {
   )
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center p-4">
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-indigo-300/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-emerald-200/20 to-teal-300/20 rounded-full blur-3xl"></div>
-      </div>
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50 flex items-center justify-center p-4">
+        {/* Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-slate-200/20 to-stone-300/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-emerald-200/20 to-teal-300/20 rounded-full blur-3xl"></div>
+        </div>
 
-      <div className="relative z-10 w-full max-w-lg">
-        {/* Back to Home Button */}
-        <button
-          onClick={handleBackToHome}
-          className="mb-6 flex items-center text-slate-600 hover:text-blue-600 transition-colors group"
-        >
-          <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-          Back to Home
-        </button>
+        <div className="relative z-10 w-full max-w-lg">
+          {/* Back to Home Button */}
+          <button
+            onClick={handleBackToHome}
+            className="mb-6 flex items-center text-slate-600 hover:text-slate-700 transition-colors group"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+            Back to Home
+          </button>
 
-        {/* Main Card */}
-        <div className="bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl border border-blue-100 p-8">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="flex justify-center mb-4">
-              <div className="bg-gradient-to-br from-emerald-500 to-teal-600 p-4 rounded-2xl shadow-lg">
-                <UserPlus className="h-8 w-8 text-white" />
+          {/* Main Card */}
+          <div className="bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl border border-slate-100 p-8">
+            {/* Header */}
+            <div className="text-center mb-8">
+              <div className="flex justify-center mb-4">
+                <div className="bg-gradient-to-br from-slate-500 to-slate-600 p-4 rounded-2xl shadow-lg">
+                  <UserPlus className="h-8 w-8 text-white" />
+                </div>
               </div>
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-600 to-slate-700 bg-clip-text text-transparent mb-2">
+                Patient Registration
+              </h1>
+              <p className="text-slate-600">Join MigrantCare for quality healthcare</p>
             </div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-2">
-              Patient Registration
-            </h1>
-            <p className="text-slate-600">Join MigrantCare for quality healthcare</p>
-          </div>
 
-          {/* Progress Bar */}
-          {currentStep <= totalSteps && (
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-slate-600">Step {currentStep} of {totalSteps}</span>
-                <span className="text-sm font-medium text-slate-600">{Math.round((currentStep / totalSteps) * 100)}%</span>
-              </div>
-              <div className="w-full bg-slate-200 rounded-full h-2">
-                <div 
-                  className="bg-gradient-to-r from-emerald-500 to-teal-600 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${(currentStep / totalSteps) * 100}%` }}
-                ></div>
-              </div>
-            </div>
-          )}
-
-          {/* Form Content */}
-          <form onSubmit={handleSubmit}>
-            {currentStep === 1 && renderStep1()}
-            {currentStep === 2 && renderStep2()}
-            {currentStep === 3 && renderStep3()}
-            {currentStep === 4 && renderStep4()}
-            {currentStep === 5 && renderSuccess()}
-
-            {/* Navigation Buttons */}
+            {/* Progress Bar */}
             {currentStep <= totalSteps && (
-              <div className="flex justify-between items-center mt-8 pt-6 border-t border-slate-200">
-                {currentStep > 1 ? (
-                  <button
-                    type="button"
-                    onClick={prevStep}
-                    className="flex items-center px-6 py-3 text-slate-600 border border-slate-300 rounded-2xl hover:bg-slate-50 font-semibold transition-all"
-                  >
-                    <ArrowLeft className="h-4 w-4 mr-2" />
-                    Previous
-                  </button>
-                ) : (
-                  <div></div>
-                )}
-
-                {currentStep < totalSteps ? (
-                  <button
-                    type="button"
-                    onClick={nextStep}
-                    className="flex items-center px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-2xl hover:from-emerald-600 hover:to-teal-700 font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
-                  >
-                    Next
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="flex items-center px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-2xl hover:from-emerald-600 hover:to-teal-700 font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                  >
-                    {isLoading ? (
-                      <>
-                        <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-top-transparent mr-2"></div>
-                        Creating Account...
-                      </>
-                    ) : (
-                      <>
-                        Complete Registration
-                        <CheckCircle className="h-4 w-4 ml-2" />
-                      </>
-                    )}
-                  </button>
-                )}
+              <div className="mb-8">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-slate-600">Step {currentStep} of {totalSteps}</span>
+                  <span className="text-sm font-medium text-slate-600">{Math.round((currentStep / totalSteps) * 100)}%</span>
+                </div>
+                <div className="w-full bg-slate-200 rounded-full h-2">
+                  <div 
+                    className="bg-gradient-to-r from-slate-500 to-slate-600 h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${(currentStep / totalSteps) * 100}%` }}
+                  ></div>
+                </div>
               </div>
             )}
-          </form>
 
-          {/* Login Link */}
-          {currentStep <= totalSteps && (
-            <div className="mt-6 text-center">
-              <p className="text-slate-600">
-                Already have an account?{' '}
-                <button
-                  onClick={handleLoginRedirect}
-                  className="text-emerald-600 hover:text-emerald-800 font-semibold transition-colors"
-                >
-                  Sign in here
-                </button>
-              </p>
-            </div>
-          )}
-        </div>
+            {/* Form Content */}
+            <form onSubmit={handleSubmit}>
+              {currentStep === 1 && renderStep1()}
+              {currentStep === 2 && renderStep2()}
+              {currentStep === 3 && renderStep3()}
+              {currentStep === 4 && renderStep4()}
+              {currentStep === 5 && renderSuccess()}
 
-        {/* Footer */}
-        <div className="mt-6 text-center text-xs text-slate-500">
-          <p>&copy; 2025 MigrantCare - Kerala Government Initiative</p>
+              {/* Navigation Buttons */}
+              {currentStep <= totalSteps && (
+                <div className="flex justify-between items-center mt-8 pt-6 border-t border-slate-200">
+                  {currentStep > 1 ? (
+                    <button
+                      type="button"
+                      onClick={prevStep}
+                      className="flex items-center px-6 py-3 text-slate-600 border border-slate-300 rounded-2xl hover:bg-slate-50 font-semibold transition-all"
+                    >
+                      <ArrowLeft className="h-4 w-4 mr-2" />
+                      Previous
+                    </button>
+                  ) : (
+                    <div></div>
+                  )}
+
+                  {currentStep < totalSteps ? (
+                    <button
+                      type="button"
+                      onClick={nextStep}
+                      className="flex items-center px-6 py-3 bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-2xl hover:from-slate-700 hover:to-slate-800 font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                    >
+                      Next
+                      <ArrowRight className="h-4 w-4 ml-2" />
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className="flex items-center px-6 py-3 bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-2xl hover:from-slate-700 hover:to-slate-800 font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    >
+                      {isLoading ? (
+                        <>
+                          <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-top-transparent mr-2"></div>
+                          Creating Account...
+                        </>
+                      ) : (
+                        <>
+                          Complete Registration
+                          <CheckCircle className="h-4 w-4 ml-2" />
+                        </>
+                      )}
+                    </button>
+                  )}
+                </div>
+              )}
+            </form>
+
+            {/* Login Link */}
+            {currentStep <= totalSteps && (
+              <div className="mt-6 text-center">
+                <p className="text-slate-600">
+                  Already have an account?{' '}
+                  <button
+                    onClick={handleLoginRedirect}
+                    className="text-slate-600 hover:text-slate-800 font-semibold transition-colors"
+                  >
+                    Sign in here
+                  </button>
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Footer */}
+          <div className="mt-6 text-center text-xs text-slate-500">
+            <p>&copy; 2025 MigrantCare - Kerala Government Initiative</p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

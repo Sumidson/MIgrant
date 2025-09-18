@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Navbar from '../components/navbar'
 import { 
   Search,
@@ -47,105 +48,109 @@ interface Stat {
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('')
+  const router = useRouter()
 
+  // Updated services array with elegant colors
   const services: Service[] = [
     {
       title: 'Register Worker',
       subtitle: 'Complete health registration',
       icon: UserCheck,
-      color: 'bg-gradient-to-br from-blue-50 to-indigo-100 hover:from-blue-100 hover:to-indigo-200 border-blue-200',
-      iconColor: 'text-blue-600 bg-white shadow-lg',
-      href: '/register'
+      color: 'bg-gradient-to-br from-slate-50 to-slate-100 hover:from-slate-100 hover:to-slate-200 border border-slate-200',
+      iconColor: 'text-slate-700 bg-white shadow-sm',
+      href: '/auth/signup'
     },
     {
       title: 'Health Records',
       subtitle: 'Access medical history',
       icon: FileText,
-      color: 'bg-gradient-to-br from-emerald-50 to-teal-100 hover:from-emerald-100 hover:to-teal-200 border-emerald-200',
-      iconColor: 'text-emerald-600 bg-white shadow-lg',
-      href: '/records'
+      color: 'bg-gradient-to-br from-stone-50 to-stone-100 hover:from-stone-100 hover:to-stone-200 border border-stone-200',
+      iconColor: 'text-stone-700 bg-white shadow-sm',
+      href: '/services/vaccinations'
     },
     {
       title: 'Medical Centers',
       subtitle: 'Find nearby facilities',
       icon: Building,
-      color: 'bg-gradient-to-br from-purple-50 to-violet-100 hover:from-purple-100 hover:to-violet-200 border-purple-200',
-      iconColor: 'text-purple-600 bg-white shadow-lg',
-      href: '/centers'
+      color: 'bg-gradient-to-br from-gray-50 to-gray-100 hover:from-gray-100 hover:to-gray-200 border border-gray-200',
+      iconColor: 'text-gray-700 bg-white shadow-sm',
+      href: '/centers/find'
     },
     {
       title: 'Health Workers',
       subtitle: 'Connect with professionals',
       icon: Users,
-      color: 'bg-gradient-to-br from-rose-50 to-pink-100 hover:from-rose-100 hover:to-pink-200 border-rose-200',
-      iconColor: 'text-rose-600 bg-white shadow-lg',
-      href: '/workers'
+      color: 'bg-gradient-to-br from-zinc-50 to-zinc-100 hover:from-zinc-100 hover:to-zinc-200 border border-zinc-200',
+      iconColor: 'text-zinc-700 bg-white shadow-sm',
+      href: '/callback'
     }
   ]
 
+  // Updated quick actions with proper routes
   const quickActions: QuickAction[] = [
     {
       title: 'Health Checkups',
       icon: Heart,
       description: 'Schedule comprehensive health examinations',
-      href: '/checkups'
+      href: '/services/checkups'
     },
     {
       title: 'Vaccination Records',
       icon: Shield,
       description: 'Track immunization history and schedule',
-      href: '/vaccinations'
+      href: '/services/vaccinations'
     },
     {
       title: 'Emergency Services',
       icon: Phone,
       description: '24/7 emergency medical assistance',
-      href: '/emergency'
+      href: '/services/emergency'
     },
     {
       title: 'Health Reports',
       icon: FileText,
       description: 'Access and download medical reports',
-      href: '/reports'
+      href: '/services/reports'
     }
   ]
 
+  // Updated stats with elegant colors
   const stats: Stat[] = [
-    { number: '15,000+', label: 'Registered Workers', icon: Users, color: 'from-blue-500 via-blue-600 to-indigo-600' },
-    { number: '50,000+', label: 'Health Records', icon: FileText, color: 'from-emerald-500 via-emerald-600 to-teal-600' },
-    { number: '14', label: 'Districts Covered', icon: MapPin, color: 'from-purple-500 via-purple-600 to-violet-600' },
-    { number: '24/7', label: 'Support Available', icon: Clock, color: 'from-rose-500 via-rose-600 to-pink-600' },
+    { number: '15,000+', label: 'Registered Workers', icon: Users, color: 'from-slate-600 via-slate-700 to-slate-800' },
+    { number: '50,000+', label: 'Health Records', icon: FileText, color: 'from-stone-600 via-stone-700 to-stone-800' },
+    { number: '14', label: 'Districts Covered', icon: MapPin, color: 'from-gray-600 via-gray-700 to-gray-800' },
+    { number: '24/7', label: 'Support Available', icon: Clock, color: 'from-zinc-600 via-zinc-700 to-zinc-800' },
   ]
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (searchQuery.trim()) {
       console.log('Searching for:', searchQuery)
-      // Handle search logic here
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`)
     }
   }
 
   const handleLinkClick = (href: string) => {
     console.log('Navigating to:', href)
-    // Handle navigation logic here
+    router.push(href)
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50">
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-16 lg:py-24 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-slate-50 via-white to-stone-50 py-16 lg:py-24 overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-200/30 to-indigo-300/30 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-emerald-200/30 to-teal-300/30 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-slate-200/20 to-stone-300/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-gray-200/20 to-zinc-300/20 rounded-full blur-3xl"></div>
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-in fade-in-50 slide-in-from-left-5">
               <div className="flex items-center mb-6">
-                <div className="bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 px-4 py-2 rounded-full text-xs font-semibold flex items-center shadow-lg border border-blue-200">
+                <div className="bg-gradient-to-r from-slate-100 to-stone-100 text-slate-700 px-4 py-2 rounded-full text-xs font-semibold flex items-center shadow-sm border border-slate-200">
                   <CheckCircle className="h-3 w-3 mr-1" />
                   Government of Kerala Initiative
                 </div>
@@ -153,8 +158,8 @@ export default function Home() {
               
               <h1 className="text-3xl lg:text-5xl font-bold text-slate-900 leading-tight mb-6">
                 Healthcare for <br/>
-                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">Migrant Workers</span><br />
-                <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Today & Always</span>
+                <span className="bg-gradient-to-r from-slate-700 via-stone-700 to-gray-700 bg-clip-text text-transparent">Migrant Workers</span><br />
+                <span className="bg-gradient-to-r from-zinc-700 to-slate-700 bg-clip-text text-transparent">Today & Always</span>
               </h1>
               
               <p className="text-lg lg:text-xl text-slate-600 mb-8 leading-relaxed max-w-xl">
@@ -165,8 +170,8 @@ export default function Home() {
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 mb-10">
                 <button 
-                  onClick={() => handleLinkClick('/get-started')}
-                  className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl hover:from-blue-700 hover:to-indigo-700 font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                  onClick={() => handleLinkClick('/auth/signup')}
+                  className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-slate-700 to-stone-700 text-white rounded-2xl hover:from-slate-800 hover:to-stone-800 font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   Get Started Today
                   <ArrowRight className="h-4 w-4 ml-2" />
@@ -183,11 +188,11 @@ export default function Home() {
               {/* Enhanced Search Bar */}
               <form 
                 onSubmit={handleSearch}
-                className="bg-white/80 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-blue-100 max-w-2xl"
+                className="bg-white/80 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-slate-200 max-w-2xl"
               >
                 <div className="flex items-center">
-                  <div className="bg-blue-100 p-2 rounded-xl mr-3">
-                    <Search className="h-4 w-4 text-blue-600" />
+                  <div className="bg-slate-100 p-2 rounded-xl mr-3">
+                    <Search className="h-4 w-4 text-slate-600" />
                   </div>
                   <input
                     type="text"
@@ -198,7 +203,7 @@ export default function Home() {
                   />
                   <button 
                     type="submit"
-                    className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-xl hover:from-blue-700 hover:to-indigo-700 font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105 text-sm"
+                    className="bg-gradient-to-r from-slate-700 to-stone-700 text-white px-6 py-2 rounded-xl hover:from-slate-800 hover:to-stone-800 font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105 text-sm"
                   >
                     Search
                   </button>
@@ -209,11 +214,11 @@ export default function Home() {
             {/* Hero Image/Illustration */}
             <div className="relative animate-in fade-in-50 slide-in-from-right-5">
               <div className="relative">
-                <div className="w-full h-80 lg:h-[400px] bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 rounded-3xl flex items-center justify-center relative overflow-hidden shadow-2xl">
+                <div className="w-full h-80 lg:h-[400px] bg-gradient-to-br from-slate-100 via-stone-100 to-gray-100 rounded-3xl flex items-center justify-center relative overflow-hidden shadow-2xl">
                   <div className="absolute inset-0 bg-white/20 backdrop-blur-sm rounded-3xl"></div>
                   <div className="text-center relative z-10">
                     <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-2xl mb-6">
-                      <Stethoscope className="h-16 w-16 text-blue-600 mx-auto mb-4" />
+                      <Stethoscope className="h-16 w-16 text-slate-700 mx-auto mb-4" />
                     </div>
                     <h3 className="text-xl font-bold text-slate-800 mb-2">Professional Healthcare</h3>
                     <p className="text-slate-600 text-base">Quality care for everyone</p>
@@ -221,16 +226,16 @@ export default function Home() {
                   
                   {/* Floating Elements */}
                   <div className="absolute top-8 left-8 bg-white/90 backdrop-blur-md p-3 rounded-2xl shadow-xl animate-pulse">
-                    <Heart className="h-6 w-6 text-red-500" />
+                    <Heart className="h-6 w-6 text-slate-600" />
                   </div>
                   <div className="absolute top-12 right-10 bg-white/90 backdrop-blur-md p-3 rounded-2xl shadow-xl animate-pulse delay-500">
-                    <Shield className="h-6 w-6 text-emerald-500" />
+                    <Shield className="h-6 w-6 text-stone-600" />
                   </div>
                   <div className="absolute bottom-10 left-10 bg-white/90 backdrop-blur-md p-3 rounded-2xl shadow-xl animate-pulse delay-1000">
-                    <Activity className="h-6 w-6 text-purple-500" />
+                    <Activity className="h-6 w-6 text-gray-600" />
                   </div>
                   <div className="absolute bottom-8 right-8 bg-white/90 backdrop-blur-md p-3 rounded-2xl shadow-xl animate-pulse delay-700">
-                    <Plus className="h-6 w-6 text-blue-500" />
+                    <Plus className="h-6 w-6 text-zinc-600" />
                   </div>
                 </div>
               </div>
@@ -240,11 +245,11 @@ export default function Home() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-16 bg-gradient-to-br from-slate-50 to-blue-50">
+      <section className="py-16 bg-gradient-to-br from-slate-50 to-stone-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
-              Our Core <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Services</span>
+              Our Core <span className="bg-gradient-to-r from-slate-700 to-stone-700 bg-clip-text text-transparent">Services</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
               Comprehensive healthcare solutions designed specifically for migrant workers across Kerala
@@ -260,17 +265,17 @@ export default function Home() {
                   className="group cursor-pointer"
                   onClick={() => handleLinkClick(service.href)}
                 >
-                  <div className={`${service.color} border-2 rounded-2xl p-6 transition-all h-full hover:-translate-y-2 duration-300 shadow-lg hover:shadow-xl`}>
+                  <div className={`${service.color} rounded-2xl p-6 transition-all h-full hover:-translate-y-2 duration-300 shadow-sm hover:shadow-lg`}>
                     <div className="flex items-center mb-4">
                       <div className={`p-3 rounded-2xl ${service.iconColor} group-hover:scale-110 transition-transform duration-300`}>
                         <Icon className="h-6 w-6" />
                       </div>
                     </div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-slate-700 transition-colors">
                       {service.title}
                     </h3>
                     <p className="text-slate-600 leading-relaxed text-sm mb-4">{service.subtitle}</p>
-                    <div className="flex items-center text-blue-600 font-semibold group-hover:translate-x-2 transition-transform text-sm">
+                    <div className="flex items-center text-slate-700 font-semibold group-hover:translate-x-2 transition-transform text-sm">
                       Learn More 
                       <ArrowRight className="h-3 w-3 ml-1" />
                     </div>
@@ -303,11 +308,11 @@ export default function Home() {
                   className="group cursor-pointer"
                   onClick={() => handleLinkClick(action.href)}
                 >
-                  <div className="bg-gradient-to-br from-white to-blue-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-blue-100 h-full hover:-translate-y-2 duration-300">
-                    <div className="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center group-hover:from-blue-200 group-hover:to-indigo-200 transition-all group-hover:scale-110 duration-300 shadow-md">
-                      <Icon className="h-6 w-6 text-blue-600" />
+                  <div className="bg-gradient-to-br from-white to-slate-50 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all border border-slate-100 h-full hover:-translate-y-2 duration-300">
+                    <div className="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-slate-100 to-stone-100 rounded-2xl flex items-center justify-center group-hover:from-slate-200 group-hover:to-stone-200 transition-all group-hover:scale-110 duration-300 shadow-sm">
+                      <Icon className="h-6 w-6 text-slate-700" />
                     </div>
-                    <h3 className="text-base font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors text-center">
+                    <h3 className="text-base font-bold text-slate-900 mb-2 group-hover:text-slate-700 transition-colors text-center">
                       {action.title}
                     </h3>
                     <p className="text-slate-600 leading-relaxed text-center text-sm">{action.description}</p>
@@ -319,19 +324,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 py-16 text-white relative overflow-hidden">
+      {/* Stats Section - Elegant and Simple */}
+      <section className="bg-gradient-to-br from-slate-800 via-stone-800 to-gray-900 py-16 text-white relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-              Our <span className="text-yellow-300">Impact</span> in Numbers
+              Our <span className="text-stone-300">Impact</span> in Numbers
             </h2>
-            <p className="text-blue-100 text-lg max-w-3xl mx-auto leading-relaxed">
+            <p className="text-slate-300 text-lg max-w-3xl mx-auto leading-relaxed">
               Making a measurable difference in migrant worker healthcare across Kerala
             </p>
           </div>
@@ -347,7 +352,7 @@ export default function Home() {
                   <div className="text-3xl lg:text-4xl font-bold mb-2">
                     {stat.number}
                   </div>
-                  <div className="text-blue-100 font-semibold">{stat.label}</div>
+                  <div className="text-slate-300 font-semibold">{stat.label}</div>
                 </div>
               )
             })}
@@ -355,12 +360,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Special Programs Banner */}
-      <section className="py-16 bg-gradient-to-br from-slate-50 to-emerald-50">
+      {/* Special Programs Banner - Elegant and Simple */}
+      <section className="py-16 bg-gradient-to-br from-slate-50 to-stone-50">
         <div className="container mx-auto px-4">
-          <div className="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-3xl p-12 lg:p-16 text-white relative overflow-hidden shadow-2xl">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+          <div className="bg-gradient-to-br from-stone-700 via-slate-700 to-gray-800 rounded-3xl p-12 lg:p-16 text-white relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
             <div className="absolute top-1/3 right-1/4 w-48 h-48 bg-white/5 rounded-full blur-2xl"></div>
             
             <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
@@ -368,15 +373,15 @@ export default function Home() {
                 <h2 className="text-3xl lg:text-5xl font-bold mb-6 leading-tight">
                   SPECIAL HEALTH<br />
                   COVERAGE PROGRAM<br />
-                  <span className="text-yellow-300">FOR WORKERS</span>
+                  <span className="text-stone-300">FOR WORKERS</span>
                 </h2>
-                <p className="text-emerald-100 text-lg mb-8 leading-relaxed">
+                <p className="text-slate-200 text-lg mb-8 leading-relaxed">
                   Comprehensive health insurance and wellness programs designed specifically 
                   for Kerala&apos;s migrant workforce community with 24/7 support.
                 </p>
                 <button 
-                  onClick={() => handleLinkClick('/coverage')}
-                  className="bg-white text-emerald-600 px-8 py-3 rounded-2xl font-bold hover:bg-gray-100 transition-all shadow-lg transform hover:scale-105"
+                  onClick={() => handleLinkClick('/services/coverage')}
+                  className="bg-white text-stone-700 px-8 py-3 rounded-2xl font-bold hover:bg-slate-100 transition-all shadow-lg transform hover:scale-105"
                 >
                   Learn More About Coverage
                 </button>
@@ -388,7 +393,7 @@ export default function Home() {
                       <Activity className="h-20 w-20 text-white mx-auto" />
                     </div>
                     <h3 className="text-xl font-bold text-white mb-2">Complete Health Coverage</h3>
-                    <p className="text-emerald-100">Protecting our workforce every day</p>
+                    <p className="text-slate-200">Protecting our workforce every day</p>
                   </div>
                 </div>
               </div>
@@ -403,7 +408,7 @@ export default function Home() {
           <div className="grid md:grid-cols-4 gap-8 mb-12">
             <div>
               <div className="flex items-center space-x-3 mb-6">
-                <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-2 rounded-xl shadow-lg">
+                <div className="bg-gradient-to-br from-slate-700 to-stone-700 p-2 rounded-xl shadow-lg">
                   <Shield className="h-6 w-6 text-white" />
                 </div>
                 <span className="text-xl font-bold">MigrantCare</span>
@@ -423,7 +428,7 @@ export default function Home() {
                     <button
                       key={index}
                       onClick={() => handleLinkClick(item.href)}
-                      className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center hover:bg-gradient-to-br hover:from-blue-600 hover:to-indigo-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-110"
+                      className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center hover:bg-gradient-to-br hover:from-slate-700 hover:to-stone-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-110"
                     >
                       <Icon className="h-4 w-4" />
                     </button>
@@ -436,19 +441,19 @@ export default function Home() {
               {
                 title: 'Services',
                 links: [
-                  { name: 'Health Registration', href: '/register' },
-                  { name: 'Medical Records', href: '/records' },
-                  { name: 'Health Checkups', href: '/checkups' },
-                  { name: 'Emergency Care', href: '/emergency' }
+                  { name: 'Health Registration', href: '/auth/signup' },
+                  { name: 'Medical Records', href: '/services/vaccinations' },
+                  { name: 'Health Checkups', href: '/services/checkups' },
+                  { name: 'Emergency Care', href: '/services/emergency' }
                 ]
               },
               {
                 title: 'Quick Links',
                 links: [
-                  { name: 'Find Health Center', href: '/centers' },
-                  { name: 'Book Appointment', href: '/appointment' },
-                  { name: 'Health Reports', href: '/reports' },
-                  { name: 'Contact Support', href: '/support' }
+                  { name: 'Find Health Center', href: '/services/centers' },
+                  { name: 'Book Appointment', href: '/services/vaccinations/booking' },
+                  { name: 'Health Reports', href: '/services/reports' },
+                  { name: 'Contact Support', href: '/services/callback' }
                 ]
               },
               {
@@ -485,10 +490,10 @@ export default function Home() {
               </p>
               <div className="flex items-center space-x-4">
                 <span className="flex items-center text-sm">
-                  <Star className="h-4 w-4 mr-1 text-yellow-400" />
+                  <Star className="h-4 w-4 mr-1 text-slate-400" />
                   Government of Kerala Initiative
                 </span>
-                <span className="text-blue-400 text-sm">Problem Statement #25083</span>
+                <span className="text-slate-400 text-sm">Problem Statement #25083</span>
               </div>
             </div>
           </div>

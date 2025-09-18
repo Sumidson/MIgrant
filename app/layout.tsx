@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     siteName: 'Kerala MigrantCare',
     images: [
       {
-        url: '/og-image.jpg', // Add this image to your public folder
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Kerala MigrantCare - Digital Health Records',
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Kerala MigrantCare',
     description: 'Digital Health Records Management System for Migrant Workers in Kerala',
-    images: ['/twitter-image.jpg'], // Add this image to your public folder
-    creator: '@KeralaGov', // Add if you have a Twitter handle
+    images: ['/twitter-image.jpg'],
+    creator: '@KeralaGov',
   },
   
   robots: {
@@ -58,9 +58,8 @@ export const metadata: Metadata = {
     },
   },
   
-  // Additional useful metadata
   verification: {
-    google: 'your-google-verification-code', // Add when you get it
+    google: 'your-google-verification-code',
   },
   category: 'Healthcare',
 }
@@ -71,13 +70,13 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className={`${inter.className} antialiased min-h-screen bg-white`}>
+    <html lang="en" className={`${inter.variable} bg-gradient-to-br from-slate-50 via-white to-stone-50`}>
+      <body className={`${inter.className} antialiased min-h-screen text-slate-900 bg-gradient-to-br from-slate-50 via-white to-stone-50`}>
         <div id="root">
           {children}
         </div>
         
-        {/* You can add global scripts here if needed */}
+        {/* Production scripts */}
         {process.env.NODE_ENV === 'production' && (
           <script
             dangerouslySetInnerHTML={{

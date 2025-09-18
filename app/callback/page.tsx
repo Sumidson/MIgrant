@@ -58,10 +58,10 @@ export default function CallbackPage() {
 
   if (isSuccess) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50">
         <Navbar />
         <div className="flex items-center justify-center py-24 px-4">
-          <div className="bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl border border-blue-100 p-8 max-w-md w-full text-center">
+          <div className="bg-white/90 backdrop-blur-md rounded-3xl shadow-xl border border-slate-200 p-8 max-w-md w-full text-center">
             <div className="flex justify-center mb-6">
               <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-4 rounded-full">
                 <CheckCircle className="h-12 w-12 text-white" />
@@ -75,7 +75,7 @@ export default function CallbackPage() {
             <div className="space-y-3">
               <button
                 onClick={resetForm}
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-2xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                className="w-full bg-gradient-to-r from-slate-700 to-stone-700 text-white px-6 py-3 rounded-2xl font-semibold hover:from-slate-800 hover:to-stone-800 transition-all shadow-md hover:shadow-lg transform hover:scale-105"
               >
                 Submit Another Request
               </button>
@@ -93,12 +93,12 @@ export default function CallbackPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50">
       <Navbar />
 
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-indigo-300/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-slate-200/20 to-stone-300/20 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-emerald-200/20 to-teal-300/20 rounded-full blur-3xl"></div>
       </div>
 
@@ -107,22 +107,22 @@ export default function CallbackPage() {
           {/* Back Button */}
           <Link
             href="/"
-            className="mb-6 flex items-center text-slate-600 hover:text-blue-600 transition-colors group"
+            className="mb-6 flex items-center text-slate-600 hover:text-slate-800 transition-colors group"
           >
             <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
             Back to Home
           </Link>
 
           {/* Main Card */}
-          <div className="bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl border border-blue-100 p-8">
+          <div className="bg-white/90 backdrop-blur-md rounded-3xl shadow-xl border border-slate-200 p-8">
             {/* Header */}
             <div className="text-center mb-8">
               <div className="flex justify-center mb-4">
-                <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-4 rounded-2xl shadow-lg">
+                <div className="bg-gradient-to-br from-slate-600 to-stone-600 p-4 rounded-2xl shadow-md">
                   <Phone className="h-8 w-8 text-white" />
                 </div>
               </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-700 to-stone-700 bg-clip-text text-transparent mb-2">
                 Request a Callback
               </h1>
               <p className="text-slate-600">We&apos;ll get back to you as soon as possible</p>
@@ -141,7 +141,7 @@ export default function CallbackPage() {
                     type="text"
                     value={formData.name}
                     onChange={(e) => handleInputChange('name', e.target.value)}
-                    className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-all"
                     placeholder="Enter your full name"
                   />
                 </div>
@@ -159,7 +159,7 @@ export default function CallbackPage() {
                     required
                     value={formData.phone}
                     onChange={(e) => handleInputChange('phone', e.target.value)}
-                    className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-all"
                     placeholder="Enter your phone number"
                   />
                 </div>
@@ -176,7 +176,7 @@ export default function CallbackPage() {
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-all"
                     placeholder="Enter your email address"
                   />
                 </div>
@@ -195,7 +195,7 @@ export default function CallbackPage() {
                       type="date"
                       value={formData.preferredDate}
                       onChange={(e) => handleInputChange('preferredDate', e.target.value)}
-                      className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                      className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-all"
                     />
                   </div>
                 </div>
@@ -211,7 +211,7 @@ export default function CallbackPage() {
                       type="time"
                       value={formData.preferredTime}
                       onChange={(e) => handleInputChange('preferredTime', e.target.value)}
-                      className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                      className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-all"
                     />
                   </div>
                 </div>
@@ -225,7 +225,7 @@ export default function CallbackPage() {
                 <select
                   value={formData.reason}
                   onChange={(e) => handleInputChange('reason', e.target.value)}
-                  className="w-full bg-white border-2 border-slate-200 rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  className="w-full bg-white border-2 border-slate-200 rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-all"
                 >
                   <option value="">Select a reason</option>
                   <option value="health-registration">Health Registration</option>
@@ -241,7 +241,7 @@ export default function CallbackPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl py-3 font-semibold hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center"
+                className="w-full bg-gradient-to-r from-slate-700 to-stone-700 text-white rounded-2xl py-3 font-semibold hover:from-slate-800 hover:to-stone-800 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:ring-offset-2 transition-all shadow-md hover:shadow-lg transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center"
               >
                 {isSubmitting ? (
                   <div className="flex items-center">
@@ -255,7 +255,7 @@ export default function CallbackPage() {
             </form>
 
             {/* Info Note */}
-            <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
+            <div className="mt-6 p-4 bg-gradient-to-r from-slate-50 to-stone-50 rounded-2xl border border-slate-200">
               <div className="text-center">
                 <p className="text-sm text-slate-600 mb-1">📞 Call Response Time</p>
                 <p className="text-xs text-slate-500">

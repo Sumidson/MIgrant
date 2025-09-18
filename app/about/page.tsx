@@ -3,7 +3,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Navbar from '@/components/navbar'
 
-
 import { 
   Shield,
   Users,
@@ -89,27 +88,27 @@ export default function AboutPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50">
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-slate-50 via-white to-stone-50 py-20 overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-indigo-300/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-slate-200/20 to-stone-300/20 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-emerald-200/20 to-teal-300/20 rounded-full blur-3xl"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <div className="flex justify-center mb-6">
-              <div className="bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 px-6 py-3 rounded-full text-sm font-semibold flex items-center shadow-lg border border-blue-200">
+              <div className="bg-gradient-to-r from-slate-100 to-stone-100 text-slate-700 px-6 py-3 rounded-full text-sm font-semibold flex items-center shadow-md border border-slate-200">
                 <Award className="h-4 w-4 mr-2" />
-
+                Smart India Hackathon 2025
               </div>
             </div>
             
             <h1 className="text-4xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6">
-              About <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">MigrantCare</span>
+              About <span className="bg-gradient-to-r from-slate-700 to-stone-700 bg-clip-text text-transparent">MigrantCare</span>
             </h1>
             
             <p className="text-xl lg:text-2xl text-slate-600 mb-8 leading-relaxed">
@@ -117,7 +116,7 @@ export default function AboutPage() {
               comprehensive digital health record management and AI-powered insights.
             </p>
 
-            <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-blue-100">
+            <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-md border border-slate-200">
               <h3 className="text-lg font-bold text-slate-900 mb-3">Our Mission</h3>
               <p className="text-slate-700 leading-relaxed">
                 To create a sustainable, technology-driven solution that ensures comprehensive health record management, 
@@ -133,7 +132,7 @@ export default function AboutPage() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="flex flex-wrap justify-center mb-12 bg-gray-100 p-2 rounded-2xl">
+            <div className="flex flex-wrap justify-center mb-12 bg-slate-100 p-2 rounded-2xl">
               {[
                 { id: 'problem', label: 'The Problem', icon: AlertTriangle },
                 { id: 'solution', label: 'Our Solution', icon: Lightbulb },
@@ -146,8 +145,8 @@ export default function AboutPage() {
                     onClick={() => setActiveTab(tab.id)}
                     className={`flex items-center px-6 py-3 rounded-xl font-semibold transition-all ${
                       activeTab === tab.id
-                        ? 'bg-blue-600 text-white shadow-lg'
-                        : 'text-slate-600 hover:text-blue-600'
+                        ? 'bg-slate-700 text-white shadow-md'
+                        : 'text-slate-600 hover:text-slate-800'
                     }`}
                   >
                     <Icon className="h-4 w-4 mr-2" />
@@ -174,10 +173,10 @@ export default function AboutPage() {
                   {problemChallenges.map((challenge, index) => {
                     const Icon = challenge.icon
                     return (
-                      <div key={index} className="bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl p-6 border border-red-200">
+                      <div key={index} className="bg-gradient-to-br from-rose-50 to-red-50 rounded-2xl p-6 border border-rose-200">
                         <div className="flex items-start">
-                          <div className="bg-red-100 p-3 rounded-xl mr-4 flex-shrink-0">
-                            <Icon className="h-6 w-6 text-red-600" />
+                          <div className="bg-rose-100 p-3 rounded-xl mr-4 flex-shrink-0">
+                            <Icon className="h-6 w-6 text-rose-600" />
                           </div>
                           <div>
                             <h3 className="text-lg font-bold text-slate-900 mb-2">{challenge.title}</h3>
@@ -189,16 +188,16 @@ export default function AboutPage() {
                   })}
                 </div>
 
-                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white">
+                <div className="bg-gradient-to-r from-slate-700 to-stone-700 rounded-2xl p-8 text-white">
                   <h3 className="text-2xl font-bold mb-4">Problem Statement Context</h3>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold mb-2">Government of Kerala Initiative</h4>
-                      <p className="text-blue-100">Health Service Department addressing critical healthcare gaps in migrant worker populations.</p>
+                      <p className="text-slate-200">Health Service Department addressing critical healthcare gaps in migrant worker populations.</p>
                     </div>
                     <div>
                       <h4 className="font-semibold mb-2">MedTech/BioTech/HealthTech Category</h4>
-                      <p className="text-blue-100">Leveraging advanced technology solutions for comprehensive health management systems.</p>
+                      <p className="text-slate-200">Leveraging advanced technology solutions for comprehensive health management systems.</p>
                     </div>
                   </div>
                 </div>
@@ -222,10 +221,10 @@ export default function AboutPage() {
                   {solutionFeatures.map((feature, index) => {
                     const Icon = feature.icon
                     return (
-                      <div key={index} className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200 hover:shadow-lg transition-shadow">
+                      <div key={index} className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-6 border border-emerald-200 hover:shadow-md transition-shadow">
                         <div className="flex items-start">
-                          <div className="bg-green-100 p-3 rounded-xl mr-4 flex-shrink-0">
-                            <Icon className="h-6 w-6 text-green-600" />
+                          <div className="bg-emerald-100 p-3 rounded-xl mr-4 flex-shrink-0">
+                            <Icon className="h-6 w-6 text-emerald-600" />
                           </div>
                           <div>
                             <h3 className="text-lg font-bold text-slate-900 mb-2">{feature.title}</h3>
@@ -237,19 +236,19 @@ export default function AboutPage() {
                   })}
                 </div>
 
-                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+                <div className="bg-white rounded-2xl p-8 shadow-md border border-slate-200">
                   <h3 className="text-2xl font-bold text-slate-900 mb-6 text-center">Key Solution Components</h3>
                   <div className="grid md:grid-cols-3 gap-6">
                     <div className="text-center">
-                      <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <FileText className="h-8 w-8 text-blue-600" />
+                      <div className="bg-slate-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <FileText className="h-8 w-8 text-slate-700" />
                       </div>
                       <h4 className="font-bold text-slate-900 mb-2">Digital Records</h4>
                       <p className="text-sm text-slate-600">Complete health documentation system</p>
                     </div>
                     <div className="text-center">
-                      <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Activity className="h-8 w-8 text-purple-600" />
+                      <div className="bg-stone-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Activity className="h-8 w-8 text-stone-700" />
                       </div>
                       <h4 className="font-bold text-slate-900 mb-2">AI Analytics</h4>
                       <p className="text-sm text-slate-600">Predictive health insights and monitoring</p>
@@ -284,9 +283,9 @@ export default function AboutPage() {
                   {impactStats.map((stat, index) => {
                     const Icon = stat.icon
                     return (
-                      <div key={index} className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 text-center">
-                        <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
-                          <Icon className="h-6 w-6 text-blue-600" />
+                      <div key={index} className="bg-white rounded-2xl p-6 shadow-md border border-slate-200 text-center">
+                        <div className="bg-slate-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <Icon className="h-6 w-6 text-slate-700" />
                         </div>
                         <div className="text-2xl font-bold text-slate-900 mb-2">{stat.number}</div>
                         <div className="text-slate-600 font-medium">{stat.label}</div>
@@ -296,14 +295,14 @@ export default function AboutPage() {
                 </div>
 
                 {/* SDG Goals */}
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-200">
+                <div className="bg-gradient-to-br from-slate-50 to-stone-50 rounded-2xl p-8 border border-slate-200">
                   <h3 className="text-2xl font-bold text-slate-900 mb-6 text-center">
                     Supporting UN Sustainable Development Goals
                   </h3>
                   <div className="grid md:grid-cols-3 gap-6">
                     {sdgGoals.map((sdg, index) => (
-                      <div key={index} className="bg-white rounded-xl p-6 text-center shadow-md">
-                        <div className="bg-blue-600 text-white text-lg font-bold w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <div key={index} className="bg-white rounded-xl p-6 text-center shadow-md border border-slate-200">
+                        <div className="bg-slate-700 text-white text-lg font-bold w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                           {sdg.goal}
                         </div>
                         <h4 className="font-bold text-slate-900 mb-2">{sdg.title}</h4>
@@ -350,18 +349,18 @@ export default function AboutPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+      <section className="py-16 bg-gradient-to-r from-slate-700 to-stone-700 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">Join Us in Transforming Healthcare</h2>
-            <p className="text-xl text-blue-100 mb-8">
+            <p className="text-xl text-slate-200 mb-8">
               Be part of the solution that&apos;s making quality healthcare accessible to every migrant worker in Kerala.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-blue-600 px-8 py-3 rounded-2xl font-bold hover:bg-gray-100 transition-all shadow-lg hover:shadow-xl transform hover:scale-105">
+              <button className="bg-white text-slate-700 px-8 py-3 rounded-2xl font-bold hover:bg-slate-100 transition-all shadow-md hover:shadow-lg transform hover:scale-105">
                 Get Started Today
               </button>
-              <button className="border-2 border-white text-white px-8 py-3 rounded-2xl font-bold hover:bg-white hover:text-blue-600 transition-all">
+              <button className="border-2 border-white text-white px-8 py-3 rounded-2xl font-bold hover:bg-white hover:text-slate-700 transition-all">
                 Learn More
               </button>
             </div>
@@ -375,7 +374,7 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-4 gap-8 mb-12">
             <div>
               <div className="flex items-center space-x-3 mb-6">
-                <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-2 rounded-xl shadow-lg">
+                <div className="bg-gradient-to-br from-slate-600 to-stone-600 p-2 rounded-xl shadow-md">
                   <Shield className="h-6 w-6 text-white" />
                 </div>
                 <span className="text-xl font-bold">MigrantCare</span>
@@ -423,10 +422,10 @@ export default function AboutPage() {
               </p>
               <div className="flex items-center space-x-4">
                 <span className="flex items-center text-sm">
-                  <Star className="h-4 w-4 mr-1 text-yellow-400" />
+                  <Star className="h-4 w-4 mr-1 text-amber-400" />
                   Smart India Hackathon 2025
                 </span>
-                <span className="text-blue-400 text-sm">Problem Statement #25083</span>
+                <span className="text-slate-500 text-sm">Problem Statement #25083</span>
               </div>
             </div>
           </div>
