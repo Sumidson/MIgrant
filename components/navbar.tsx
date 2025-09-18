@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation' // Add this import
+import { useRouter } from 'next/navigation'
 import { 
   Shield,
   Phone,
@@ -21,7 +21,7 @@ interface NavigationItem {
 }
 
 export default function Navbar() {
-  const router = useRouter() // Add this line
+  const router = useRouter()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
 
@@ -66,7 +66,8 @@ export default function Navbar() {
       dropdownItems: [
         { title: 'Health Checkups', href: '/services/checkups' },
         { title: 'Vaccinations', href: '/services/vaccinations' },
-        { title: 'Emergency Care', href: '/services/emergency' }
+        { title: 'Emergency Care', href: '/services/emergency' },
+        { title: 'Patient Records', href: '/services/patient-records' }
       ]
     },
     {
@@ -86,9 +87,8 @@ export default function Navbar() {
     setActiveDropdown(activeDropdown === title ? null : title)
   }
 
-  // Update this function to actually navigate
   const handleLinkClick = (href: string) => {
-    router.push(href) // Replace console.log with actual navigation
+    router.push(href)
     setIsMenuOpen(false)
     setActiveDropdown(null)
   }
@@ -202,7 +202,7 @@ export default function Navbar() {
               Request Callback
             </button>
             
-            {/* Login Button - THIS IS THE KEY FIX */}
+            {/* Login Button */}
             <button 
               onClick={() => handleLinkClick('/auth/login')}
               className="hidden md:flex items-center px-4 py-2 text-slate-700 border border-slate-300 rounded-xl hover:bg-slate-50 font-medium transition-all shadow-sm hover:shadow-md text-sm"
