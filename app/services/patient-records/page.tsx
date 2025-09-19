@@ -114,7 +114,7 @@ export default function PatientPortalPage() {
       case 'active': case 'normal': return 'text-emerald-700 bg-emerald-50 border-emerald-200';
       case 'inactive': return 'text-slate-700 bg-slate-100 border-slate-200';
       case 'critical': case 'high': return 'text-rose-700 bg-rose-50 border-rose-200';
-      case 'low': return 'text-slate-700 bg-slate-100 border-slate-200';
+      case 'low': return 'text-amber-700 bg-amber-50 border-amber-200';
       default: return 'text-slate-700 bg-slate-100 border-slate-200';
     }
   };
@@ -122,8 +122,7 @@ export default function PatientPortalPage() {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'normal': return <CheckCircle className="w-4 h-4" />;
-      case 'high': case 'critical': return <AlertTriangle className="w-4 h-4" />;
-      case 'low': return <TrendingUp className="w-4 h-4" />;
+      case 'high': case 'critical': case 'low': return <AlertTriangle className="w-4 h-4" />;
       default: return <Clock className="w-4 h-4" />;
     }
   };
@@ -160,7 +159,7 @@ export default function PatientPortalPage() {
     <>
       <Navbar />
       
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50 py-8 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 py-8 px-4">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -168,14 +167,14 @@ export default function PatientPortalPage() {
           className="max-w-6xl mx-auto"
         >
           {/* Header Section - Patient Profile */}
-          <motion.div variants={itemVariants} className="bg-slate-50 rounded-2xl shadow-lg p-8 mb-8 border border-slate-200">
+          <motion.div variants={itemVariants} className="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-slate-200">
             <div className="flex flex-col md:flex-row items-center justify-between mb-6">
               <div className="flex items-center mb-4 md:mb-0">
                 <div className="relative">
-                  <div className="w-20 h-20 bg-gradient-to-br from-slate-600 to-stone-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mr-6">
+                  <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center text-white text-2xl font-bold mr-6">
                     {patientData.name.split(' ').map(n => n[0]).join('')}
                   </div>
-                  <div className="absolute -bottom-1 -right-1">
+                  <div className="absolute -bottom-1 -right-4">
                     <div className={`w-6 h-6 rounded-full border-2 border-white ${
                       patientData.status === 'active' ? 'bg-emerald-500' : 
                       patientData.status === 'critical' ? 'bg-rose-500' : 'bg-slate-500'
@@ -184,10 +183,10 @@ export default function PatientPortalPage() {
                 </div>
                 <div>
                   <h1 className="text-3xl font-bold text-slate-800">{patientData.name}</h1>
-                  <p className="text-slate-700 text-lg">Patient ID: {patientData.patientId}</p>
+                  <p className="text-slate-600 text-lg">Patient ID: {patientData.patientId}</p>
                   <div className="flex items-center mt-2">
-                    <span className="text-sm text-slate-700 mr-4">{patientData.age} years old</span>
-                    <span className="text-sm text-slate-700 mr-4">{patientData.gender}</span>
+                    <span className="text-sm text-slate-600 mr-4">{patientData.age} years old</span>
+                    <span className="text-sm text-slate-600 mr-4">{patientData.gender}</span>
                     <span className="inline-flex items-center text-sm font-medium text-rose-700">
                       <Droplets className="w-4 h-4 mr-1" />
                       {patientData.bloodGroup}
@@ -201,7 +200,7 @@ export default function PatientPortalPage() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handlePrint}
-                  className="flex items-center px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors shadow-md"
+                  className="flex items-center px-4 py-2 text-blue-700 border border-blue-300 rounded-lg hover:bg-blue-50 font-medium transition-all shadow-sm"
                 >
                   <Printer className="w-4 h-4 mr-2" />
                   Print
@@ -210,7 +209,7 @@ export default function PatientPortalPage() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleDownload}
-                  className="flex items-center px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-800 transition-colors shadow-md"
+                  className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-md"
                 >
                   <Download className="w-4 h-4 mr-2" />
                   Download
@@ -230,25 +229,25 @@ export default function PatientPortalPage() {
                 </div>
               </div>
               
-              <div className="bg-gradient-to-r from-slate-50 to-slate-100 p-4 rounded-xl border border-slate-200">
+              <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-slate-700 font-medium">Next Appointment</p>
-                    <p className="text-lg font-bold text-slate-800">
+                    <p className="text-sm text-blue-700 font-medium">Next Appointment</p>
+                    <p className="text-lg font-bold text-blue-800">
                       {new Date(patientData.nextAppointment).toLocaleDateString()}
                     </p>
                   </div>
-                  <Calendar className="w-8 h-8 text-slate-700" />
+                  <Calendar className="w-8 h-8 text-blue-700" />
                 </div>
               </div>
               
-              <div className="bg-gradient-to-r from-stone-50 to-stone-100 p-4 rounded-xl border border-stone-200">
+              <div className="bg-gradient-to-r from-slate-50 to-slate-100 p-4 rounded-xl border border-slate-200">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-stone-700 font-medium">Assigned Doctor</p>
-                    <p className="text-lg font-bold text-stone-800">{patientData.doctor}</p>
+                    <p className="text-sm text-slate-700 font-medium">Assigned Doctor</p>
+                    <p className="text-lg font-bold text-slate-800">{patientData.doctor}</p>
                   </div>
-                  <Stethoscope className="w-8 h-8 text-stone-600" />
+                  <Stethoscope className="w-8 h-8 text-slate-600" />
                 </div>
               </div>
               
@@ -265,7 +264,7 @@ export default function PatientPortalPage() {
           </motion.div>
 
           {/* Navigation Tabs */}
-          <motion.div variants={itemVariants} className="bg-slate-50 rounded-2xl shadow-lg mb-8 border border-slate-200">
+          <motion.div variants={itemVariants} className="bg-white rounded-2xl shadow-lg mb-8 border border-slate-200">
             <div className="flex border-b border-slate-200">
               {[
                 { id: 'overview', label: 'Health Overview', icon: <Activity className="w-4 h-4" /> },
@@ -278,8 +277,8 @@ export default function PatientPortalPage() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center px-6 py-4 font-medium transition-colors ${
                     activeTab === tab.id
-                      ? 'text-slate-800 border-b-2 border-slate-700 bg-slate-100'
-                      : 'text-slate-700 hover:text-slate-800 hover:bg-slate-100'
+                      ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
+                      : 'text-slate-600 hover:text-blue-600 hover:bg-blue-50'
                   }`}
                 >
                   {tab.icon}
@@ -295,7 +294,7 @@ export default function PatientPortalPage() {
             {activeTab === 'overview' && (
               <div className="space-y-8">
                 {/* Current Health Status */}
-                <div className="bg-slate-50 rounded-2xl shadow-lg p-6 border border-slate-200">
+                <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
                   <h3 className="text-xl font-bold text-slate-800 mb-6">Current Health Status</h3>
                   <div className="grid md:grid-cols-2 gap-6">
                     {patientData.currentProblems.slice(0, 6).map((problem, index) => (
@@ -304,7 +303,7 @@ export default function PatientPortalPage() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        className="bg-white rounded-xl p-4 border border-slate-200"
+                        className="bg-slate-50 rounded-xl p-4 border border-slate-200"
                       >
                         <div className="flex items-center justify-between mb-2">
                           <h4 className="font-semibold text-slate-800">{problem.problem}</h4>
@@ -324,7 +323,7 @@ export default function PatientPortalPage() {
 
                 {/* Quick Summary */}
                 <div className="grid md:grid-cols-2 gap-8">
-                  <div className="bg-slate-50 rounded-2xl shadow-lg p-6 border border-slate-200">
+                  <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
                     <h3 className="text-xl font-bold text-slate-800 mb-4">Chronic Conditions</h3>
                     <div className="space-y-3">
                       {patientData.chronicDiseases.map((disease, index) => (
@@ -336,7 +335,7 @@ export default function PatientPortalPage() {
                     </div>
                   </div>
 
-                  <div className="bg-slate-50 rounded-2xl shadow-lg p-6 border border-slate-200">
+                  <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
                     <h3 className="text-xl font-bold text-slate-800 mb-4">Recent Activity</h3>
                     <div className="space-y-3">
                       <div className="flex items-center p-3 bg-slate-100 rounded-lg border border-slate-200">
@@ -361,7 +360,7 @@ export default function PatientPortalPage() {
 
             {/* Vitals Tab */}
             {activeTab === 'vitals' && (
-              <div className="bg-slate-50 rounded-2xl shadow-lg p-6 border border-slate-200">
+              <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
                 <h3 className="text-xl font-bold text-slate-800 mb-6">Current Vital Signs</h3>
                 <div className="grid md:grid-cols-3 gap-6">
                   {patientData.currentProblems.map((problem, index) => (
@@ -370,7 +369,7 @@ export default function PatientPortalPage() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="border border-slate-200 rounded-xl p-6 hover:shadow-md transition-shadow bg-white"
+                      className="border border-slate-200 rounded-xl p-6 hover:shadow-md transition-shadow bg-slate-50"
                     >
                       <div className="flex items-center justify-between mb-4">
                         <h4 className="font-semibold text-slate-800">{problem.problem}</h4>
@@ -393,7 +392,7 @@ export default function PatientPortalPage() {
             {activeTab === 'history' && (
               <div className="space-y-8">
                 {/* Past Treatments */}
-                <div className="bg-slate-50 rounded-2xl shadow-lg p-6 border border-slate-200">
+                <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
                   <h3 className="text-xl font-bold text-slate-800 mb-6">Past Treatments</h3>
                   <div className="space-y-4">
                     {patientData.pastTreatments.map((treatment, index) => (
@@ -413,7 +412,7 @@ export default function PatientPortalPage() {
 
                 {/* Accident History */}
                 {patientData.accidents.length > 0 && (
-                  <div className="bg-slate-50 rounded-2xl shadow-lg p-6 border border-slate-200">
+                  <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
                     <h3 className="text-xl font-bold text-slate-800 mb-6">Accident History</h3>
                     <div className="space-y-4">
                       {patientData.accidents.map((accident, index) => (
@@ -438,7 +437,7 @@ export default function PatientPortalPage() {
             {activeTab === 'allergies' && (
               <div className="space-y-8">
                 {/* Medicine Allergies */}
-                <div className="bg-slate-50 rounded-2xl shadow-lg p-6 border border-slate-200">
+                <div className="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-rose-500">
                   <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center">
                     <Pill className="w-6 h-6 mr-2 text-rose-600" />
                     Medicine Allergies - CRITICAL
@@ -460,7 +459,7 @@ export default function PatientPortalPage() {
                 </div>
 
                 {/* General Allergies */}
-                <div className="bg-slate-50 rounded-2xl shadow-lg p-6 border border-slate-200">
+                <div className="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-amber-500">
                   <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center">
                     <Shield className="w-6 h-6 mr-2 text-amber-600" />
                     General Allergies
@@ -485,27 +484,27 @@ export default function PatientPortalPage() {
           </motion.div>
 
           {/* Contact Information Footer */}
-          <motion.div variants={itemVariants} className="mt-8 bg-slate-50 rounded-2xl shadow-lg p-6 border border-slate-200">
+          <motion.div variants={itemVariants} className="mt-8 bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
             <h3 className="text-lg font-bold text-slate-800 mb-4">Contact Information</h3>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="flex items-center">
-                <Phone className="w-5 h-5 text-slate-700 mr-3" />
+                <Phone className="w-5 h-5 text-blue-600 mr-3" />
                 <div>
-                  <p className="text-sm text-slate-700">Phone</p>
+                  <p className="text-sm text-slate-600">Phone</p>
                   <p className="font-semibold text-slate-800">{patientData.phone}</p>
                 </div>
               </div>
               <div className="flex items-center">
-                <Mail className="w-5 h-5 text-slate-700 mr-3" />
+                <Mail className="w-5 h-5 text-blue-600 mr-3" />
                 <div>
-                  <p className="text-sm text-slate-700">Email</p>
+                  <p className="text-sm text-slate-600">Email</p>
                   <p className="font-semibold text-slate-800">{patientData.email}</p>
                 </div>
               </div>
               <div className="flex items-center">
-                <User className="w-5 h-5 text-slate-700 mr-3" />
+                <User className="w-5 h-5 text-blue-600 mr-3" />
                 <div>
-                  <p className="text-sm text-slate-700">Emergency Contact</p>
+                  <p className="text-sm text-slate-600">Emergency Contact</p>
                   <p className="font-semibold text-slate-800">{patientData.emergencyContact}</p>
                 </div>
               </div>

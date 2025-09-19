@@ -104,9 +104,9 @@ const BookCheckupPage: React.FC = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
-          className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50 flex items-center justify-center p-4"
+          className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center p-4"
         >
-          <div className="bg-slate-50 rounded-2xl shadow-lg p-8 max-w-md w-full text-center border border-slate-200">
+          <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full text-center border border-slate-200">
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
@@ -115,14 +115,14 @@ const BookCheckupPage: React.FC = () => {
               <CheckCircle className="w-16 h-16 text-emerald-600 mx-auto mb-4" />
             </motion.div>
             <h2 className="text-2xl font-bold text-slate-800 mb-2">Appointment Booked!</h2>
-            <p className="text-slate-700 mb-6">
+            <p className="text-slate-600 mb-6">
               Your checkup has been scheduled successfully. We&apos;ll send you a confirmation email shortly.
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsSubmitted(false)}
-              className="bg-slate-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-slate-800 transition-colors shadow-sm"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-sm"
             >
               Book Another Appointment
             </motion.button>
@@ -135,7 +135,7 @@ const BookCheckupPage: React.FC = () => {
   return (
     <>
       <Navbar /> {/* Added Navbar component */}
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50 py-12 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 py-12 px-4">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -148,22 +148,22 @@ const BookCheckupPage: React.FC = () => {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-              className="inline-flex items-center justify-center w-16 h-16 bg-slate-700 text-white rounded-full mb-4 shadow-md"
+              className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-teal-600 text-white rounded-full mb-4 shadow-md"
             >
               <Stethoscope className="w-8 h-8" />
             </motion.div>
             <h1 className="text-4xl font-bold text-slate-800 mb-4">Book Your Health Checkup</h1>
-            <p className="text-xl text-slate-700 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               Schedule your appointment with our experienced healthcare professionals. 
               We&apos;re here to take care of your health and well-being.
             </p>
           </motion.div>
 
           {/* Form Section */}
-          <motion.div variants={itemVariants} className="bg-slate-50 rounded-2xl shadow-lg overflow-hidden border border-slate-200">
-            <div className="bg-gradient-to-r from-slate-700 to-stone-700 p-6">
+          <motion.div variants={itemVariants} className="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-200">
+            <div className="bg-gradient-to-r from-blue-700 to-blue-800 p-6">
               <h2 className="text-2xl font-bold text-white">Appointment Details</h2>
-              <p className="text-slate-200">Please fill out the form below to schedule your checkup</p>
+              <p className="text-blue-100">Please fill out the form below to schedule your checkup</p>
             </div>
 
             <form onSubmit={handleSubmit} className="p-8 space-y-6">
@@ -171,7 +171,7 @@ const BookCheckupPage: React.FC = () => {
                 {/* Personal Information */}
                 <motion.div variants={itemVariants} className="space-y-2">
                   <label className="flex items-center text-sm font-semibold text-slate-800 mb-2">
-                    <User className="w-4 h-4 mr-2 text-slate-700" />
+                    <User className="w-4 h-4 mr-2 text-blue-600" />
                     Full Name *
                   </label>
                   <input
@@ -180,14 +180,14 @@ const BookCheckupPage: React.FC = () => {
                     value={formData.fullName}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors bg-white"
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
                     placeholder="Enter your full name"
                   />
                 </motion.div>
 
                 <motion.div variants={itemVariants} className="space-y-2">
                   <label className="flex items-center text-sm font-semibold text-slate-800 mb-2">
-                    <Mail className="w-4 h-4 mr-2 text-slate-700" />
+                    <Mail className="w-4 h-4 mr-2 text-blue-600" />
                     Email Address *
                   </label>
                   <input
@@ -196,14 +196,14 @@ const BookCheckupPage: React.FC = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors bg-white"
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
                     placeholder="Enter your email address"
                   />
                 </motion.div>
 
                 <motion.div variants={itemVariants} className="space-y-2">
                   <label className="flex items-center text-sm font-semibold text-slate-800 mb-2">
-                    <Phone className="w-4 h-4 mr-2 text-slate-700" />
+                    <Phone className="w-4 h-4 mr-2 text-blue-600" />
                     Phone Number *
                   </label>
                   <input
@@ -212,14 +212,14 @@ const BookCheckupPage: React.FC = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors bg-white"
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
                     placeholder="Enter your phone number"
                   />
                 </motion.div>
 
                 <motion.div variants={itemVariants} className="space-y-2">
                   <label className="flex items-center text-sm font-semibold text-slate-800 mb-2">
-                    <Stethoscope className="w-4 h-4 mr-2 text-slate-700" />
+                    <Stethoscope className="w-4 h-4 mr-2 text-blue-600" />
                     Appointment Type *
                   </label>
                   <select
@@ -227,7 +227,7 @@ const BookCheckupPage: React.FC = () => {
                     value={formData.appointmentType}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors bg-white"
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white appearance-none"
                   >
                     <option value="">Select appointment type</option>
                     {appointmentTypes.map((type) => (
@@ -238,7 +238,7 @@ const BookCheckupPage: React.FC = () => {
 
                 <motion.div variants={itemVariants} className="space-y-2">
                   <label className="flex items-center text-sm font-semibold text-slate-800 mb-2">
-                    <Calendar className="w-4 h-4 mr-2 text-slate-700" />
+                    <Calendar className="w-4 h-4 mr-2 text-blue-600" />
                     Preferred Date *
                   </label>
                   <input
@@ -248,13 +248,13 @@ const BookCheckupPage: React.FC = () => {
                     onChange={handleInputChange}
                     required
                     min={new Date().toISOString().split('T')[0]}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors bg-white"
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
                   />
                 </motion.div>
 
                 <motion.div variants={itemVariants} className="space-y-2">
                   <label className="flex items-center text-sm font-semibold text-slate-800 mb-2">
-                    <Clock className="w-4 h-4 mr-2 text-slate-700" />
+                    <Clock className="w-4 h-4 mr-2 text-blue-600" />
                     Preferred Time *
                   </label>
                   <select
@@ -262,7 +262,7 @@ const BookCheckupPage: React.FC = () => {
                     value={formData.preferredTime}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors bg-white"
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white appearance-none"
                   >
                     <option value="">Select time slot</option>
                     {timeSlots.map((time) => (
@@ -275,7 +275,7 @@ const BookCheckupPage: React.FC = () => {
               {/* Additional Information */}
               <motion.div variants={itemVariants} className="space-y-2">
                 <label className="flex items-center text-sm font-semibold text-slate-800 mb-2">
-                  <AlertCircle className="w-4 h-4 mr-2 text-slate-700" />
+                  <AlertCircle className="w-4 h-4 mr-2 text-blue-600" />
                   Symptoms or Concerns (Optional)
                 </label>
                 <textarea
@@ -283,14 +283,14 @@ const BookCheckupPage: React.FC = () => {
                   value={formData.symptoms}
                   onChange={handleInputChange}
                   rows={4}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors resize-none bg-white"
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none bg-white"
                   placeholder="Please describe any symptoms or health concerns you'd like to discuss"
                 />
               </motion.div>
 
               <motion.div variants={itemVariants} className="space-y-2">
                 <label className="flex items-center text-sm font-semibold text-slate-800 mb-2">
-                  <Phone className="w-4 h-4 mr-2 text-slate-700" />
+                  <Phone className="w-4 h-4 mr-2 text-blue-600" />
                   Emergency Contact (Optional)
                 </label>
                 <input
@@ -298,7 +298,7 @@ const BookCheckupPage: React.FC = () => {
                   name="emergencyContact"
                   value={formData.emergencyContact}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors bg-white"
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
                   placeholder="Emergency contact name and phone number"
                 />
               </motion.div>
@@ -313,7 +313,7 @@ const BookCheckupPage: React.FC = () => {
                   disabled={isLoading}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-gradient-to-r from-slate-700 to-stone-700 text-white py-4 px-6 rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl hover:from-slate-800 hover:to-stone-800 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 px-6 rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   {isLoading ? (
                     <motion.div
@@ -329,9 +329,9 @@ const BookCheckupPage: React.FC = () => {
               </motion.div>
 
               {/* Additional Info */}
-              <motion.div variants={itemVariants} className="text-center text-sm text-slate-700 pt-4">
+              <motion.div variants={itemVariants} className="text-center text-sm text-slate-600 pt-4">
                 <div className="flex items-center justify-center mb-2">
-                  <MapPin className="w-4 h-4 mr-1" />
+                  <MapPin className="w-4 h-4 mr-1.5" />
                   <span>Located at: 123 Healthcare Ave, Medical District</span>
                 </div>
                 <p>* Required fields. We&apos;ll confirm your appointment via email and phone.</p>
@@ -343,17 +343,17 @@ const BookCheckupPage: React.FC = () => {
           <motion.div variants={itemVariants} className="mt-12 grid md:grid-cols-3 gap-6">
             {[
               {
-                icon: <CheckCircle className="w-8 h-8" />,
+                icon: <CheckCircle className="w-8 h-8 text-emerald-600" />,
                 title: "Easy Booking",
                 description: "Simple online appointment scheduling system"
               },
               {
-                icon: <Clock className="w-8 h-8" />,
+                icon: <Clock className="w-8 h-8 text-blue-600" />,
                 title: "Flexible Timing",
                 description: "Choose from available time slots that work for you"
               },
               {
-                icon: <Stethoscope className="w-8 h-8" />,
+                icon: <Stethoscope className="w-8 h-8 text-slate-600" />,
                 title: "Expert Care",
                 description: "Experienced healthcare professionals ready to help"
               }
@@ -361,11 +361,11 @@ const BookCheckupPage: React.FC = () => {
               <motion.div
                 key={index}
                 whileHover={{ y: -5 }}
-                className="bg-slate-50 p-6 rounded-xl shadow-md text-center border border-slate-200"
+                className="bg-white p-6 rounded-xl shadow-md text-center border border-slate-200"
               >
-                <div className="text-slate-700 mb-4 flex justify-center">{feature.icon}</div>
+                <div className="mb-4 flex justify-center">{feature.icon}</div>
                 <h3 className="font-semibold text-slate-800 mb-2">{feature.title}</h3>
-                <p className="text-slate-700 text-sm">{feature.description}</p>
+                <p className="text-slate-600 text-sm">{feature.description}</p>
               </motion.div>
             ))}
           </motion.div>

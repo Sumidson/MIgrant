@@ -3,11 +3,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '@/components/navbar'; // Added Navbar import
-import { 
-  FileText, 
-  Download, 
+import {
+  FileText,
+  Download,
   Printer,
-  User, 
+  User,
   Calendar,
   Activity,
   Heart,
@@ -175,7 +175,7 @@ const HealthReportPage: React.FC = () => {
     switch (status) {
       case 'normal': return 'text-emerald-700 bg-emerald-50 border-emerald-200';
       case 'high': return 'text-amber-700 bg-amber-50 border-amber-200';
-      case 'low': return 'text-slate-700 bg-slate-100 border-slate-200';
+      case 'low': return 'text-blue-700 bg-blue-50 border-blue-200';
       case 'critical': return 'text-rose-700 bg-rose-50 border-rose-200';
       default: return 'text-slate-700 bg-slate-100 border-slate-200';
     }
@@ -192,8 +192,8 @@ const HealthReportPage: React.FC = () => {
 
   const getTrendIcon = (trend: string) => {
     switch (trend) {
-      case 'up': return <TrendingUp className="w-4 h-4 text-emerald-600" />;
-      case 'down': return <TrendingDown className="w-4 h-4 text-rose-600" />;
+      case 'up': return <TrendingUp className="w-4 h-4 text-amber-600" />;
+      case 'down': return <TrendingDown className="w-4 h-4 text-emerald-600" />;
       default: return <Minus className="w-4 h-4 text-slate-500" />;
     }
   };
@@ -229,7 +229,7 @@ const HealthReportPage: React.FC = () => {
   return (
     <>
       <Navbar /> {/* Added Navbar component */}
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50 py-8 px-4">
+      <div className="min-h-screen bg-slate-50 py-8 px-4">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -237,15 +237,15 @@ const HealthReportPage: React.FC = () => {
           className="max-w-6xl mx-auto"
         >
           {/* Header Section */}
-          <motion.div variants={itemVariants} className="bg-slate-50 rounded-lg shadow-md p-6 mb-6 border border-slate-200">
+          <motion.div variants={itemVariants} className="bg-white rounded-lg shadow-md p-6 mb-6 border border-slate-200">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center">
-                <div className="bg-slate-700 text-white p-3 rounded-full mr-4">
+                <div className="bg-blue-600 text-white p-3 rounded-full mr-4">
                   <FileText className="w-8 h-8" />
                 </div>
                 <div>
                   <h1 className="text-3xl font-bold text-slate-800">Health Report</h1>
-                  <p className="text-slate-700">Comprehensive health analysis and recommendations</p>
+                  <p className="text-slate-600">Comprehensive health analysis and recommendations</p>
                 </div>
               </div>
               <div className="flex gap-3">
@@ -253,7 +253,7 @@ const HealthReportPage: React.FC = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handlePrint}
-                  className="flex items-center px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors shadow-sm"
+                  className="flex items-center px-4 py-2 bg-slate-100 text-slate-700 border border-slate-300 rounded-lg hover:bg-slate-200 transition-colors shadow-sm"
                 >
                   <Printer className="w-4 h-4 mr-2" />
                   Print
@@ -262,7 +262,7 @@ const HealthReportPage: React.FC = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleDownload}
-                  className="flex items-center px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-800 transition-colors shadow-sm"
+                  className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
                 >
                   <Download className="w-4 h-4 mr-2" />
                   Download PDF
@@ -271,32 +271,32 @@ const HealthReportPage: React.FC = () => {
             </div>
 
             {/* Patient Information */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 p-6 bg-gradient-to-r from-slate-100 to-stone-100 rounded-lg border border-slate-200">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 p-6 bg-gradient-to-r from-slate-50 to-blue-50 rounded-lg border border-slate-200">
               <div className="flex items-center">
-                <User className="w-5 h-5 text-slate-700 mr-3" />
+                <User className="w-5 h-5 text-blue-600 mr-3" />
                 <div>
-                  <p className="text-sm text-slate-700">Patient Name</p>
+                  <p className="text-sm text-slate-600">Patient Name</p>
                   <p className="font-semibold text-slate-800">{patientInfo.name}</p>
                 </div>
               </div>
               <div className="flex items-center">
-                <Calendar className="w-5 h-5 text-slate-700 mr-3" />
+                <Calendar className="w-5 h-5 text-blue-600 mr-3" />
                 <div>
-                  <p className="text-sm text-slate-700">Age / Gender</p>
+                  <p className="text-sm text-slate-600">Age / Gender</p>
                   <p className="font-semibold text-slate-800">{patientInfo.age} / {patientInfo.gender}</p>
                 </div>
               </div>
               <div className="flex items-center">
-                <FileText className="w-5 h-5 text-slate-700 mr-3" />
+                <FileText className="w-5 h-5 text-blue-600 mr-3" />
                 <div>
-                  <p className="text-sm text-slate-700">Patient ID</p>
+                  <p className="text-sm text-slate-600">Patient ID</p>
                   <p className="font-semibold text-slate-800">{patientInfo.patientId}</p>
                 </div>
               </div>
               <div className="flex items-center">
-                <Clock className="w-5 h-5 text-slate-700 mr-3" />
+                <Clock className="w-5 h-5 text-blue-600 mr-3" />
                 <div>
-                  <p className="text-sm text-slate-700">Report Date</p>
+                  <p className="text-sm text-slate-600">Report Date</p>
                   <p className="font-semibold text-slate-800">{patientInfo.reportDate}</p>
                 </div>
               </div>
@@ -304,7 +304,7 @@ const HealthReportPage: React.FC = () => {
           </motion.div>
 
           {/* Navigation Tabs */}
-          <motion.div variants={itemVariants} className="bg-slate-50 rounded-lg shadow-md mb-6 border border-slate-200">
+          <motion.div variants={itemVariants} className="bg-white rounded-lg shadow-md mb-6 border border-slate-200">
             <div className="flex border-b border-slate-200">
               {[
                 { id: 'overview', label: 'Overview', icon: <Activity className="w-4 h-4" /> },
@@ -317,8 +317,8 @@ const HealthReportPage: React.FC = () => {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center px-6 py-4 font-medium transition-colors ${
                     activeTab === tab.id
-                      ? 'text-slate-800 border-b-2 border-slate-700 bg-slate-100'
-                      : 'text-slate-700 hover:text-slate-800 hover:bg-slate-100'
+                      ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
+                      : 'text-slate-600 hover:text-blue-600 hover:bg-blue-50'
                   }`}
                 >
                   {tab.icon}
@@ -342,16 +342,16 @@ const HealthReportPage: React.FC = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
                       whileHover={{ y: -5 }}
-                      className="bg-slate-50 p-6 rounded-lg shadow-md border border-slate-200"
+                      className="bg-white p-6 rounded-lg shadow-md border border-slate-200"
                     >
                       <div className="flex items-center justify-between mb-4">
-                        <div className="text-slate-700">{vital.icon}</div>
+                        <div className="text-blue-600">{vital.icon}</div>
                         {getTrendIcon(vital.trend)}
                       </div>
                       <h3 className="font-semibold text-slate-800 mb-2">{vital.name}</h3>
                       <div className="flex items-baseline">
                         <span className="text-2xl font-bold text-slate-800">{vital.value}</span>
-                        <span className="ml-2 text-sm text-slate-700">{vital.unit}</span>
+                        <span className="ml-2 text-sm text-slate-600">{vital.unit}</span>
                       </div>
                       <div className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-3 border ${getStatusColor(vital.status)}`}>
                         {getStatusIcon(vital.status)}
@@ -362,7 +362,7 @@ const HealthReportPage: React.FC = () => {
                 </div>
 
                 {/* Quick Insights */}
-                <div className="bg-slate-50 rounded-lg shadow-md p-6 border border-slate-200">
+                <div className="bg-white rounded-lg shadow-md p-6 border border-slate-200">
                   <h3 className="text-xl font-bold text-slate-800 mb-4">Health Summary</h3>
                   <div className="grid md:grid-cols-3 gap-6">
                     <div className="text-center p-4 bg-emerald-50 rounded-lg border border-emerald-200">
@@ -375,10 +375,10 @@ const HealthReportPage: React.FC = () => {
                       <p className="font-semibold text-amber-800">Areas to Monitor</p>
                       <p className="text-sm text-amber-700">1 metric elevated</p>
                     </div>
-                    <div className="text-center p-4 bg-slate-100 rounded-lg border border-slate-200">
-                      <Calendar className="w-12 h-12 text-slate-700 mx-auto mb-2" />
-                      <p className="font-semibold text-slate-800">Next Checkup</p>
-                      <p className="text-sm text-slate-700">In 3 months</p>
+                    <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
+                      <Calendar className="w-12 h-12 text-blue-700 mx-auto mb-2" />
+                      <p className="font-semibold text-blue-800">Next Checkup</p>
+                      <p className="text-sm text-blue-700">In 3 months</p>
                     </div>
                   </div>
                 </div>
@@ -387,7 +387,7 @@ const HealthReportPage: React.FC = () => {
 
             {/* Vital Signs Tab */}
             {activeTab === 'vitals' && (
-              <div className="bg-slate-50 rounded-lg shadow-md p-6 border border-slate-200">
+              <div className="bg-white rounded-lg shadow-md p-6 border border-slate-200">
                 <h3 className="text-xl font-bold text-slate-800 mb-6">Vital Signs History</h3>
                 <div className="space-y-6">
                   {vitalSigns.map((vital, index) => (
@@ -396,20 +396,20 @@ const HealthReportPage: React.FC = () => {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="border border-slate-200 rounded-lg p-4 bg-white"
+                      className="border border-slate-200 rounded-lg p-4 bg-slate-50"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center">
-                          <div className="text-slate-700 mr-4">{vital.icon}</div>
+                          <div className="text-blue-600 mr-4">{vital.icon}</div>
                           <div>
                             <h4 className="font-semibold text-slate-800">{vital.name}</h4>
-                            <p className="text-sm text-slate-700">Normal range: {vital.normalRange}</p>
+                            <p className="text-sm text-slate-600">Normal range: {vital.normalRange}</p>
                           </div>
                         </div>
                         <div className="text-right">
                           <div className="flex items-center">
                             <span className="text-2xl font-bold text-slate-800 mr-2">{vital.value}</span>
-                            <span className="text-slate-700">{vital.unit}</span>
+                            <span className="text-slate-600">{vital.unit}</span>
                             {getTrendIcon(vital.trend)}
                           </div>
                           <div className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-2 border ${getStatusColor(vital.status)}`}>
@@ -433,17 +433,17 @@ const HealthReportPage: React.FC = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: categoryIndex * 0.2 }}
-                    className="bg-slate-50 rounded-lg shadow-md p-6 border border-slate-200"
+                    className="bg-white rounded-lg shadow-md p-6 border border-slate-200"
                   >
                     <h3 className="text-xl font-bold text-slate-800 mb-4">{category.category}</h3>
                     <div className="overflow-x-auto">
                       <table className="w-full">
                         <thead>
-                          <tr className="border-b border-slate-200">
-                            <th className="text-left py-3 px-4 font-semibold text-slate-800">Test Name</th>
-                            <th className="text-left py-3 px-4 font-semibold text-slate-800">Result</th>
-                            <th className="text-left py-3 px-4 font-semibold text-slate-800">Normal Range</th>
-                            <th className="text-left py-3 px-4 font-semibold text-slate-800">Status</th>
+                          <tr className="border-b border-slate-200 bg-slate-50">
+                            <th className="text-left py-3 px-4 font-semibold text-slate-600">Test Name</th>
+                            <th className="text-left py-3 px-4 font-semibold text-slate-600">Result</th>
+                            <th className="text-left py-3 px-4 font-semibold text-slate-600">Normal Range</th>
+                            <th className="text-left py-3 px-4 font-semibold text-slate-600">Status</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -453,14 +453,14 @@ const HealthReportPage: React.FC = () => {
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
                               transition={{ delay: (categoryIndex * 0.2) + (testIndex * 0.05) }}
-                              className="border-b border-slate-100 hover:bg-slate-100"
+                              className="border-b border-slate-100 hover:bg-blue-50"
                             >
                               <td className="py-3 px-4 font-medium text-slate-800">{test.name}</td>
                               <td className="py-3 px-4">
                                 <span className="font-semibold text-slate-800">{test.value}</span>
-                                <span className="ml-1 text-slate-700">{test.unit}</span>
+                                <span className="ml-1 text-slate-600">{test.unit}</span>
                               </td>
-                              <td className="py-3 px-4 text-slate-700">{test.normalRange}</td>
+                              <td className="py-3 px-4 text-slate-600">{test.normalRange}</td>
                               <td className="py-3 px-4">
                                 <div className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(test.status)}`}>
                                   {getStatusIcon(test.status)}
@@ -486,7 +486,7 @@ const HealthReportPage: React.FC = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.2 }}
-                    className="bg-slate-50 rounded-lg shadow-md p-6 border border-slate-200"
+                    className="bg-white rounded-lg shadow-md p-6 border border-slate-200"
                   >
                     <h3 className="text-xl font-bold text-slate-800 mb-4">{section.title}</h3>
                     <ul className="space-y-3">
@@ -499,7 +499,7 @@ const HealthReportPage: React.FC = () => {
                           className="flex items-start"
                         >
                           <CheckCircle className="w-5 h-5 text-emerald-600 mr-3 mt-0.5 flex-shrink-0" />
-                          <span className="text-slate-800">{item}</span>
+                          <span className="text-slate-700">{item}</span>
                         </motion.li>
                       ))}
                     </ul>
@@ -511,15 +511,15 @@ const HealthReportPage: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
-                  className="bg-gradient-to-r from-slate-100 to-stone-100 rounded-lg p-6 border-l-4 border-slate-700"
+                  className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-lg p-6 border-l-4 border-blue-600"
                 >
                   <h4 className="font-bold text-slate-800 mb-2">Doctor&apos;s Note</h4>
-                  <p className="text-slate-800 mb-4">
-                    Overall health status is good with minor elevation in LDL cholesterol. 
-                    Implementing the recommended dietary changes and exercise routine should help 
+                  <p className="text-slate-700 mb-4">
+                    Overall health status is good with minor elevation in LDL cholesterol.
+                    Implementing the recommended dietary changes and exercise routine should help
                     bring levels back to optimal range. Continue current medications as prescribed.
                   </p>
-                  <div className="flex items-center text-sm text-slate-700">
+                  <div className="flex items-center text-sm text-slate-600">
                     <User className="w-4 h-4 mr-2" />
                     <span className="font-semibold">{patientInfo.doctorName}</span>
                     <span className="mx-2">•</span>
@@ -531,23 +531,23 @@ const HealthReportPage: React.FC = () => {
           </motion.div>
 
           {/* Footer */}
-          <motion.div variants={itemVariants} className="mt-8 bg-slate-50 rounded-lg shadow-md p-6 border border-slate-200">
-            <div className="text-center text-sm text-slate-700">
+          <motion.div variants={itemVariants} className="mt-8 bg-white rounded-lg shadow-md p-6 border border-slate-200">
+            <div className="text-center text-sm text-slate-600">
               <div className="flex items-center justify-center mb-2">
-                <MapPin className="w-4 h-4 mr-1" />
+                <MapPin className="w-4 h-4 mr-1.5" />
                 <span>Healthcare Center • 123 Medical Ave, Health District</span>
               </div>
               <div className="flex items-center justify-center space-x-4">
                 <div className="flex items-center">
-                  <Phone className="w-4 h-4 mr-1" />
+                  <Phone className="w-4 h-4 mr-1.5" />
                   <span>+1 (555) 123-4567</span>
                 </div>
                 <div className="flex items-center">
-                  <Mail className="w-4 h-4 mr-1" />
+                  <Mail className="w-4 h-4 mr-1.5" />
                   <span>reports@healthcare.com</span>
                 </div>
               </div>
-              <p className="mt-2">This report is confidential and intended for the patient and authorized healthcare providers only.</p>
+              <p className="mt-4 text-xs text-slate-500">This report is confidential and intended for the patient and authorized healthcare providers only.</p>
             </div>
           </motion.div>
         </motion.div>

@@ -52,7 +52,6 @@ export default function FindNearestCentersPage() {
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Mock data for Kerala vaccination centers
   const healthCenters: HealthCenter[] = [
     {
       id: 'kochi-general',
@@ -152,11 +151,9 @@ export default function FindNearestCentersPage() {
     }
   ];
 
-  // Calculate distance using Haversine formula
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
     const toRad = (value: number) => (value * Math.PI) / 180;
     const R = 6371; // Radius of Earth in kilometers
-
     const dLat = toRad(lat2 - lat1);
     const dLon = toRad(lon2 - lon1);
     const a =
@@ -164,11 +161,9 @@ export default function FindNearestCentersPage() {
       Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
       Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
     return R * c;
   };
 
-  // Get user's current location
   const getCurrentLocation = () => {
     if (!navigator.geolocation) {
       setError('Geolocation is not supported by this browser.');
@@ -199,7 +194,6 @@ export default function FindNearestCentersPage() {
     );
   };
 
-  // Calculate distances and sort centers when location is available
   useEffect(() => {
     if (userLocation) {
       const centersWithDistance = healthCenters.map(center => ({
@@ -217,18 +211,17 @@ export default function FindNearestCentersPage() {
     }
   }, [userLocation]);
 
-  // Filter centers based on selected filter and search query
   const filteredCenters = nearestCenters.filter(center => {
     const matchesFilter = selectedFilter === 'all' || center.type === selectedFilter;
     const matchesSearch = center.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         center.address.toLowerCase().includes(searchQuery.toLowerCase());
+                          center.address.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case 'Government Hospital': return 'bg-slate-100 text-slate-800';
-      case 'Private Hospital': return 'bg-stone-100 text-stone-800';
+      case 'Government Hospital': return 'bg-blue-100 text-blue-800';
+      case 'Private Hospital': return 'bg-slate-100 text-slate-800';
       case 'Primary Health Center': return 'bg-emerald-100 text-emerald-800';
       case 'Community Health Center': return 'bg-amber-100 text-amber-800';
       default: return 'bg-slate-100 text-slate-800';
@@ -259,7 +252,7 @@ export default function FindNearestCentersPage() {
     <>
       <Navbar />
       
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50 font-['Inter',system-ui,sans-serif]">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 font-['Inter',system-ui,sans-serif]">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -268,20 +261,20 @@ export default function FindNearestCentersPage() {
         >
           {/* Header Section */}
           <motion.div variants={itemVariants} className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-slate-600 to-stone-600 rounded-2xl shadow-md mb-6">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-teal-600 rounded-2xl shadow-md mb-6">
               <MapPin className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl lg:text-4xl font-bold text-slate-800 mb-4">Find Nearest Health Centers</h1>
-            <p className="text-xl text-slate-700 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               Locate vaccination and healthcare centers near your location across Kerala
             </p>
           </motion.div>
 
           {/* Location Access Section */}
-          <motion.div variants={itemVariants} className="bg-slate-50 rounded-3xl shadow-md border border-slate-200 p-8 mb-8">
+          <motion.div variants={itemVariants} className="bg-white rounded-3xl shadow-md border border-slate-200 p-8 mb-8">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-slate-800 mb-4">Get Your Location</h2>
-              <p className="text-slate-700 mb-6">
+              <p className="text-slate-600 mb-6">
                 Allow location access to find the nearest healthcare centers based on your current position
               </p>
               
@@ -290,7 +283,7 @@ export default function FindNearestCentersPage() {
                   onClick={getCurrentLocation}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-slate-700 to-stone-700 text-white font-semibold rounded-2xl hover:from-slate-800 hover:to-stone-800 transition-all shadow-md hover:shadow-lg"
+                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-2xl hover:from-blue-700 hover:to-blue-800 transition-all shadow-md hover:shadow-lg"
                 >
                   <Navigation className="w-5 h-5 mr-2" />
                   Use My Current Location
@@ -299,8 +292,8 @@ export default function FindNearestCentersPage() {
 
               {loading && (
                 <div className="flex items-center justify-center">
-                  <Loader className="w-6 h-6 animate-spin text-slate-700 mr-2" />
-                  <span className="text-slate-700">Getting your location...</span>
+                  <Loader className="w-6 h-6 animate-spin text-blue-600 mr-2" />
+                  <span className="text-slate-600">Getting your location...</span>
                 </div>
               )}
 
@@ -322,9 +315,8 @@ export default function FindNearestCentersPage() {
 
           {/* Search and Filter Section */}
           {userLocation && (
-            <motion.div variants={itemVariants} className="bg-slate-50 rounded-2xl shadow-md border border-slate-200 p-6 mb-8">
+            <motion.div variants={itemVariants} className="bg-white rounded-2xl shadow-md border border-slate-200 p-6 mb-8">
               <div className="grid md:grid-cols-2 gap-6">
-                {/* Search Bar */}
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-500" />
                   <input
@@ -332,17 +324,16 @@ export default function FindNearestCentersPage() {
                     placeholder="Search centers by name or location..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors bg-white"
+                    className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
                   />
                 </div>
 
-                {/* Filter Dropdown */}
                 <div className="relative">
                   <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-500" />
                   <select
                     value={selectedFilter}
                     onChange={(e) => setSelectedFilter(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors appearance-none bg-white"
+                    className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors appearance-none bg-white"
                   >
                     <option value="all">All Centers</option>
                     <option value="Government Hospital">Government Hospitals</option>
@@ -362,7 +353,7 @@ export default function FindNearestCentersPage() {
                 <h2 className="text-2xl font-bold text-slate-800 mb-2">
                   Nearest Health Centers ({filteredCenters.length})
                 </h2>
-                <p className="text-slate-700">Sorted by distance from your location</p>
+                <p className="text-slate-600">Sorted by distance from your location</p>
               </div>
 
               <div className="space-y-6">
@@ -372,13 +363,13 @@ export default function FindNearestCentersPage() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-slate-50 rounded-2xl shadow-md border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow"
+                    className="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow"
                   >
                     <div className="p-8">
                       <div className="flex items-start justify-between mb-6">
                         <div className="flex items-start space-x-4">
-                          <div className="w-16 h-16 bg-gradient-to-r from-slate-100 to-stone-100 rounded-2xl flex items-center justify-center border border-slate-200">
-                            <Building className="w-8 h-8 text-slate-700" />
+                          <div className="w-16 h-16 bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl flex items-center justify-center border border-slate-200">
+                            <Building className="w-8 h-8 text-blue-600" />
                           </div>
                           <div>
                             <h3 className="text-xl font-bold text-slate-800 mb-2">{center.name}</h3>
@@ -395,7 +386,7 @@ export default function FindNearestCentersPage() {
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-2xl font-bold text-slate-700 mb-1">
+                          <div className="text-2xl font-bold text-blue-600 mb-1">
                             {center.distance.toFixed(1)} km
                           </div>
                           <div className="text-sm text-slate-600">away</div>
@@ -408,23 +399,21 @@ export default function FindNearestCentersPage() {
                             <MapPin className="w-5 h-5 text-slate-600 mr-3 mt-0.5" />
                             <div>
                               <p className="font-medium text-slate-800">Address</p>
-                              <p className="text-slate-700">{center.address}</p>
+                              <p className="text-slate-600">{center.address}</p>
                             </div>
                           </div>
-
                           <div className="flex items-center">
                             <Phone className="w-5 h-5 text-slate-600 mr-3" />
                             <div>
                               <p className="font-medium text-slate-800">Phone</p>
-                              <p className="text-slate-700">{center.phone}</p>
+                              <p className="text-slate-600">{center.phone}</p>
                             </div>
                           </div>
-
                           <div className="flex items-center">
                             <Clock className="w-5 h-5 text-slate-600 mr-3" />
                             <div>
                               <p className="font-medium text-slate-800">Working Hours</p>
-                              <p className="text-slate-700">{center.workingHours}</p>
+                              <p className="text-slate-600">{center.workingHours}</p>
                             </div>
                           </div>
                         </div>
@@ -432,7 +421,7 @@ export default function FindNearestCentersPage() {
                         <div className="space-y-4">
                           <div>
                             <div className="flex items-center mb-2">
-                              <Syringe className="w-5 h-5 text-slate-600 mr-2" />
+                              <Syringe className="w-5 h-5 text-emerald-600 mr-2" />
                               <p className="font-medium text-slate-800">Available Vaccines</p>
                             </div>
                             <div className="flex flex-wrap gap-2">
@@ -443,7 +432,6 @@ export default function FindNearestCentersPage() {
                               ))}
                             </div>
                           </div>
-
                           <div>
                             <div className="flex items-center mb-2">
                               <Heart className="w-5 h-5 text-slate-600 mr-2" />
@@ -461,15 +449,15 @@ export default function FindNearestCentersPage() {
                       </div>
 
                       <div className="flex flex-col sm:flex-row gap-3 mt-6 pt-6 border-t border-slate-200">
-                        <button className="flex items-center justify-center px-6 py-3 bg-slate-700 text-white rounded-xl hover:bg-slate-800 transition-colors font-semibold shadow-sm">
+                        <button className="flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-semibold shadow-sm">
                           <Route className="w-4 h-4 mr-2" />
                           Get Directions
                         </button>
-                        <button className="flex items-center justify-center px-6 py-3 bg-emerald-700 text-white rounded-xl hover:bg-emerald-800 transition-colors font-semibold shadow-sm">
+                        <button className="flex items-center justify-center px-6 py-3 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors font-semibold shadow-sm">
                           <Calendar className="w-4 h-4 mr-2" />
                           Book Appointment
                         </button>
-                        <button className="flex items-center justify-center px-6 py-3 border border-slate-300 text-slate-800 rounded-xl hover:bg-slate-100 transition-colors font-semibold">
+                        <button className="flex items-center justify-center px-6 py-3 border border-blue-300 text-blue-700 rounded-xl hover:bg-blue-50 transition-colors font-semibold">
                           <Phone className="w-4 h-4 mr-2" />
                           Call Now
                         </button>
@@ -483,7 +471,7 @@ export default function FindNearestCentersPage() {
                 <div className="text-center py-12">
                   <AlertCircle className="w-16 h-16 text-slate-400 mx-auto mb-4" />
                   <h3 className="text-xl font-semibold text-slate-800 mb-2">No Centers Found</h3>
-                  <p className="text-slate-700">Try adjusting your search terms or filter options.</p>
+                  <p className="text-slate-600">Try adjusting your search terms or filter options.</p>
                 </div>
               )}
             </motion.div>
@@ -492,33 +480,33 @@ export default function FindNearestCentersPage() {
           {/* Default State - No Location */}
           {!userLocation && !loading && (
             <motion.div variants={itemVariants} className="text-center py-16">
-              <MapPin className="w-24 h-24 text-slate-300 mx-auto mb-6" />
+              <MapPin className="w-24 h-24 text-blue-200 mx-auto mb-6" />
               <h2 className="text-2xl font-bold text-slate-800 mb-4">Ready to Find Centers?</h2>
-              <p className="text-slate-700 mb-8 max-w-md mx-auto">
+              <p className="text-slate-600 mb-8 max-w-md mx-auto">
                 Click &ldquo;Use My Current Location&rdquo; above to discover healthcare centers near you,
                 sorted by distance and equipped with the services you need.
               </p>
               <div className="grid md:grid-cols-3 gap-6 max-w-2xl mx-auto">
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mx-auto mb-3 border border-slate-200">
-                    <Navigation className="w-6 h-6 text-slate-700" />
+                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-3 border border-blue-200">
+                    <Navigation className="w-6 h-6 text-blue-700" />
                   </div>
                   <h4 className="font-semibold text-slate-800 mb-1">Find Nearby</h4>
-                  <p className="text-sm text-slate-700">Get centers sorted by distance</p>
+                  <p className="text-sm text-slate-600">Get centers sorted by distance</p>
                 </div>
                 <div className="text-center">
                   <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mx-auto mb-3 border border-emerald-200">
                     <Syringe className="w-6 h-6 text-emerald-700" />
                   </div>
                   <h4 className="font-semibold text-slate-800 mb-1">Check Services</h4>
-                  <p className="text-sm text-slate-700">View available vaccines & services</p>
+                  <p className="text-sm text-slate-600">View available vaccines & services</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-stone-100 rounded-xl flex items-center justify-center mx-auto mb-3 border border-stone-200">
-                    <Calendar className="w-6 h-6 text-stone-700" />
+                  <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mx-auto mb-3 border border-slate-200">
+                    <Calendar className="w-6 h-6 text-slate-700" />
                   </div>
                   <h4 className="font-semibold text-slate-800 mb-1">Book Directly</h4>
-                  <p className="text-sm text-slate-700">Schedule appointments easily</p>
+                  <p className="text-sm text-slate-600">Schedule appointments easily</p>
                 </div>
               </div>
             </motion.div>

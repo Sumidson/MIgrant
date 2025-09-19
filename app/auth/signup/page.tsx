@@ -71,10 +71,10 @@ export default function SignupPage() {
         return !!(formData.name.trim() && formData.phoneNumber.trim())
       case 2:
         return !!(formData.aadharNumber.trim() && formData.hometown.trim() && 
-                 formData.hometownAddress.trim() && formData.keralaAddress.trim())
+                  formData.hometownAddress.trim() && formData.keralaAddress.trim())
       case 3:
         return !!(formData.nomineeName.trim() && formData.nomineePhone.trim() && 
-                 formData.nomineeAddress.trim())
+                  formData.nomineeAddress.trim())
       case 4:
         return true // Health info can be optional
       default:
@@ -125,7 +125,6 @@ export default function SignupPage() {
         <h2 className="text-2xl font-bold text-slate-900 mb-2">Basic Information</h2>
         <p className="text-slate-600">Let&apos;s start with your basic details</p>
       </div>
-
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
@@ -133,47 +132,25 @@ export default function SignupPage() {
           </label>
           <div className="relative">
             <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
-            <input
-              type="text"
-              value={formData.name}
-              onChange={(e) => handleInputChange('name', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
-              placeholder="Enter your full name"
-              required
-            />
+            <input type="text" value={formData.name} onChange={(e) => handleInputChange('name', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter your full name" required />
           </div>
         </div>
-
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
             Phone Number <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
-            <input
-              type="tel"
-              value={formData.phoneNumber}
-              onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
-              placeholder="Enter your phone number"
-              required
-            />
+            <input type="tel" value={formData.phoneNumber} onChange={(e) => handleInputChange('phoneNumber', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter your phone number" required />
           </div>
         </div>
-
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
             Email Address <span className="text-slate-400">(Optional)</span>
           </label>
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
-            <input
-              type="email"
-              value={formData.email}
-              onChange={(e) => handleInputChange('email', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
-              placeholder="Enter your email (optional)"
-            />
+            <input type="email" value={formData.email} onChange={(e) => handleInputChange('email', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter your email (optional)" />
           </div>
         </div>
       </div>
@@ -187,7 +164,6 @@ export default function SignupPage() {
         <h2 className="text-2xl font-bold text-slate-900 mb-2">Identity & Address</h2>
         <p className="text-slate-600">Your identification and address details</p>
       </div>
-
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
@@ -195,63 +171,34 @@ export default function SignupPage() {
           </label>
           <div className="relative">
             <IdCard className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
-            <input
-              type="text"
-              value={formData.aadharNumber}
-              onChange={(e) => handleInputChange('aadharNumber', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
-              placeholder="Enter your Aadhar number"
-              required
-            />
+            <input type="text" value={formData.aadharNumber} onChange={(e) => handleInputChange('aadharNumber', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter your Aadhar number" required />
           </div>
         </div>
-
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
             Hometown <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <Home className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
-            <input
-              type="text"
-              value={formData.hometown}
-              onChange={(e) => handleInputChange('hometown', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
-              placeholder="Enter your hometown"
-              required
-            />
+            <input type="text" value={formData.hometown} onChange={(e) => handleInputChange('hometown', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter your hometown" required />
           </div>
         </div>
-
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
             Hometown Address <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <MapPin className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
-            <textarea
-              value={formData.hometownAddress}
-              onChange={(e) => handleInputChange('hometownAddress', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all min-h-[80px] resize-none"
-              placeholder="Enter your hometown address"
-              required
-            />
+            <textarea value={formData.hometownAddress} onChange={(e) => handleInputChange('hometownAddress', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[80px] resize-none" placeholder="Enter your hometown address" required />
           </div>
         </div>
-
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
             Kerala Address <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <MapPin className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
-            <textarea
-              value={formData.keralaAddress}
-              onChange={(e) => handleInputChange('keralaAddress', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all min-h-[80px] resize-none"
-              placeholder="Enter your current address in Kerala"
-              required
-            />
+            <textarea value={formData.keralaAddress} onChange={(e) => handleInputChange('keralaAddress', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[80px] resize-none" placeholder="Enter your current address in Kerala" required />
           </div>
         </div>
       </div>
@@ -265,7 +212,6 @@ export default function SignupPage() {
         <h2 className="text-2xl font-bold text-slate-900 mb-2">Nominee Details</h2>
         <p className="text-slate-600">Emergency contact and nominee information</p>
       </div>
-
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
@@ -273,47 +219,25 @@ export default function SignupPage() {
           </label>
           <div className="relative">
             <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
-            <input
-              type="text"
-              value={formData.nomineeName}
-              onChange={(e) => handleInputChange('nomineeName', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
-              placeholder="Enter nominee's full name"
-              required
-            />
+            <input type="text" value={formData.nomineeName} onChange={(e) => handleInputChange('nomineeName', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter nominee's full name" required />
           </div>
         </div>
-
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
             Nominee Phone Number <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
-            <input
-              type="tel"
-              value={formData.nomineePhone}
-              onChange={(e) => handleInputChange('nomineePhone', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
-              placeholder="Enter nominee's phone number"
-              required
-            />
+            <input type="tel" value={formData.nomineePhone} onChange={(e) => handleInputChange('nomineePhone', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter nominee's phone number" required />
           </div>
         </div>
-
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
             Nominee Address <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <MapPin className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
-            <textarea
-              value={formData.nomineeAddress}
-              onChange={(e) => handleInputChange('nomineeAddress', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all min-h-[100px] resize-none"
-              placeholder="Enter nominee's complete address"
-              required
-            />
+            <textarea value={formData.nomineeAddress} onChange={(e) => handleInputChange('nomineeAddress', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[100px] resize-none" placeholder="Enter nominee's complete address" required />
           </div>
         </div>
       </div>
@@ -327,7 +251,6 @@ export default function SignupPage() {
         <h2 className="text-2xl font-bold text-slate-900 mb-2">Health Information</h2>
         <p className="text-slate-600">Your medical history and current health status</p>
       </div>
-
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
@@ -335,42 +258,25 @@ export default function SignupPage() {
           </label>
           <div className="relative">
             <Heart className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
-            <textarea
-              value={formData.illnesses}
-              onChange={(e) => handleInputChange('illnesses', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all min-h-[80px] resize-none"
-              placeholder="List any current illnesses or health conditions"
-            />
+            <textarea value={formData.illnesses} onChange={(e) => handleInputChange('illnesses', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[80px] resize-none" placeholder="List any current illnesses or health conditions" />
           </div>
         </div>
-
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
             Allergies <span className="text-slate-400">(Optional)</span>
           </label>
           <div className="relative">
             <FileText className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
-            <textarea
-              value={formData.allergies}
-              onChange={(e) => handleInputChange('allergies', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all min-h-[80px] resize-none"
-              placeholder="List any known allergies"
-            />
+            <textarea value={formData.allergies} onChange={(e) => handleInputChange('allergies', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[80px] resize-none" placeholder="List any known allergies" />
           </div>
         </div>
-
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
             Current Medications <span className="text-slate-400">(Optional)</span>
           </label>
           <div className="relative">
             <FileText className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
-            <textarea
-              value={formData.currentMedications}
-              onChange={(e) => handleInputChange('currentMedications', e.target.value)}
-              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all min-h-[80px] resize-none"
-              placeholder="List any medications you're currently taking"
-            />
+            <textarea value={formData.currentMedications} onChange={(e) => handleInputChange('currentMedications', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[80px] resize-none" placeholder="List any medications you're currently taking" />
           </div>
         </div>
       </div>
@@ -391,7 +297,7 @@ export default function SignupPage() {
       </p>
       <button
         onClick={handleLoginRedirect}
-        className="bg-gradient-to-r from-slate-600 to-slate-700 text-white px-8 py-3 rounded-2xl font-semibold hover:from-slate-700 hover:to-slate-800 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+        className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-3 rounded-2xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
       >
         Sign In to Your Account
       </button>
@@ -401,18 +307,18 @@ export default function SignupPage() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center p-4">
         {/* Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-slate-200/20 to-stone-300/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-emerald-200/20 to-teal-300/20 rounded-full blur-3xl"></div>
+        <div className="absolute inset-0 overflow-hidden -z-10">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-100/30 to-teal-200/30 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-blue-100/30 to-teal-200/30 rounded-full blur-3xl"></div>
         </div>
 
         <div className="relative z-10 w-full max-w-lg">
           {/* Back to Home Button */}
           <button
             onClick={handleBackToHome}
-            className="mb-6 flex items-center text-slate-600 hover:text-slate-700 transition-colors group"
+            className="mb-6 flex items-center text-blue-600 hover:text-blue-800 transition-colors group"
           >
             <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
             Back to Home
@@ -423,11 +329,11 @@ export default function SignupPage() {
             {/* Header */}
             <div className="text-center mb-8">
               <div className="flex justify-center mb-4">
-                <div className="bg-gradient-to-br from-slate-500 to-slate-600 p-4 rounded-2xl shadow-lg">
+                <div className="bg-gradient-to-br from-blue-600 to-teal-600 p-4 rounded-2xl shadow-lg">
                   <UserPlus className="h-8 w-8 text-white" />
                 </div>
               </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-600 to-slate-700 bg-clip-text text-transparent mb-2">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent mb-2">
                 Patient Registration
               </h1>
               <p className="text-slate-600">Join MigrantCare for quality healthcare</p>
@@ -438,11 +344,11 @@ export default function SignupPage() {
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium text-slate-600">Step {currentStep} of {totalSteps}</span>
-                  <span className="text-sm font-medium text-slate-600">{Math.round((currentStep / totalSteps) * 100)}%</span>
+                  <span className="text-sm font-medium text-blue-600">{Math.round((currentStep / totalSteps) * 100)}%</span>
                 </div>
                 <div className="w-full bg-slate-200 rounded-full h-2">
                   <div 
-                    className="bg-gradient-to-r from-slate-500 to-slate-600 h-2 rounded-full transition-all duration-300"
+                    className="bg-gradient-to-r from-blue-500 to-teal-500 h-2 rounded-full transition-all duration-300"
                     style={{ width: `${(currentStep / totalSteps) * 100}%` }}
                   ></div>
                 </div>
@@ -464,7 +370,7 @@ export default function SignupPage() {
                     <button
                       type="button"
                       onClick={prevStep}
-                      className="flex items-center px-6 py-3 text-slate-600 border border-slate-300 rounded-2xl hover:bg-slate-50 font-semibold transition-all"
+                      className="flex items-center px-6 py-3 text-blue-600 border border-blue-300 rounded-2xl hover:bg-blue-50 font-semibold transition-all"
                     >
                       <ArrowLeft className="h-4 w-4 mr-2" />
                       Previous
@@ -477,7 +383,7 @@ export default function SignupPage() {
                     <button
                       type="button"
                       onClick={nextStep}
-                      className="flex items-center px-6 py-3 bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-2xl hover:from-slate-700 hover:to-slate-800 font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                      className="flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl hover:from-blue-700 hover:to-blue-800 font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
                     >
                       Next
                       <ArrowRight className="h-4 w-4 ml-2" />
@@ -486,11 +392,11 @@ export default function SignupPage() {
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="flex items-center px-6 py-3 bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-2xl hover:from-slate-700 hover:to-slate-800 font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                      className="flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-teal-600 text-white rounded-2xl hover:from-blue-700 hover:to-teal-700 font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                     >
                       {isLoading ? (
                         <>
-                          <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-top-transparent mr-2"></div>
+                          <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
                           Creating Account...
                         </>
                       ) : (
@@ -512,7 +418,7 @@ export default function SignupPage() {
                   Already have an account?{' '}
                   <button
                     onClick={handleLoginRedirect}
-                    className="text-slate-600 hover:text-slate-800 font-semibold transition-colors"
+                    className="text-blue-600 hover:text-blue-800 font-semibold transition-colors"
                   >
                     Sign in here
                   </button>

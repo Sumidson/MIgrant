@@ -2,23 +2,31 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import Navbar from '@/components/navbar';
 import { 
-  Calendar,
-  Clock,
-  MapPin,
-  Syringe,
-  CheckCircle,
-  User,
-  Phone,
-  Mail,
-  ArrowRight,
-  AlertCircle,
-  Building,
-  Heart,
   Shield,
+  CheckCircle,
+  Clock,
+  Calendar,
+  Syringe,
+  AlertTriangle,
+  Download,
+  Printer,
+  Plus,
+  User,
   FileText,
-  X
+  Bell,
+  TrendingUp,
+  Activity,
+  Heart,
+  Award,
+  X,
+  MapPin,
+  Building,
+  Mail,
+  Phone,
+  ArrowRight
 } from 'lucide-react';
 
 interface Hospital {
@@ -196,13 +204,13 @@ export default function VaccinationBookingPage() {
     return (
       <>
         <Navbar />
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             className="bg-white rounded-3xl shadow-2xl p-12 max-w-2xl w-full text-center border border-slate-100"
           >
-            <div className="w-20 h-20 bg-gradient-to-r from-slate-600 to-stone-600 rounded-full flex items-center justify-center mx-auto mb-8">
+            <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-8">
               <CheckCircle className="w-10 h-10 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-slate-900 mb-4">Booking Confirmed!</h2>
@@ -210,19 +218,19 @@ export default function VaccinationBookingPage() {
               Your vaccination appointment has been successfully scheduled.
             </p>
             
-            <div className="bg-slate-50 rounded-2xl p-6 mb-8 text-left border border-slate-100">
+            <div className="bg-blue-50 rounded-2xl p-6 mb-8 text-left border border-blue-100">
               <h3 className="font-bold text-slate-900 mb-4">Appointment Details:</h3>
               <div className="space-y-3">
                 <div className="flex items-center">
-                  <Calendar className="w-5 h-5 text-slate-600 mr-3" />
+                  <Calendar className="w-5 h-5 text-blue-600 mr-3" />
                   <span className="text-slate-700">{new Date(bookingForm.date).toLocaleDateString()} at {bookingForm.time}</span>
                 </div>
                 <div className="flex items-center">
-                  <MapPin className="w-5 h-5 text-slate-600 mr-3" />
+                  <MapPin className="w-5 h-5 text-blue-600 mr-3" />
                   <span className="text-slate-700">{selectedHospitalDetails?.name}</span>
                 </div>
                 <div className="flex items-center">
-                  <Syringe className="w-5 h-5 text-slate-600 mr-3" />
+                  <Syringe className="w-5 h-5 text-blue-600 mr-3" />
                   <span className="text-slate-700">{bookingForm.vaccineType}</span>
                 </div>
               </div>
@@ -231,13 +239,13 @@ export default function VaccinationBookingPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button 
                 onClick={() => window.print()}
-                className="px-6 py-3 bg-slate-600 text-white rounded-xl hover:bg-slate-700 transition-colors shadow-sm"
+                className="px-6 py-3 text-blue-700 border border-blue-300 rounded-xl hover:bg-blue-50 font-medium transition-all shadow-sm"
               >
                 Print Confirmation
               </button>
               <button 
                 onClick={() => {setIsSubmitted(false); setCurrentStep(1);}}
-                className="px-6 py-3 bg-slate-700 text-white rounded-xl hover:bg-slate-800 transition-colors shadow-sm"
+                className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors shadow-sm"
               >
                 Book Another Appointment
               </button>
@@ -252,7 +260,7 @@ export default function VaccinationBookingPage() {
     <>
       <Navbar />
       
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50 font-['Inter',system-ui,sans-serif]">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 font-['Inter',system-ui,sans-serif]">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -261,7 +269,7 @@ export default function VaccinationBookingPage() {
         >
           {/* Header */}
           <motion.div variants={itemVariants} className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-slate-600 to-stone-600 rounded-2xl shadow-lg mb-6">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-teal-600 rounded-2xl shadow-lg mb-6">
               <Syringe className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Book Vaccination Appointment</h1>
@@ -273,30 +281,30 @@ export default function VaccinationBookingPage() {
           {/* Progress Steps */}
           <motion.div variants={itemVariants} className="max-w-4xl mx-auto mb-12">
             <div className="flex justify-center">
-              <div className="flex items-center space-x-8">
+              <div className="flex items-center">
                 {[
                   { step: 1, title: 'Date & Vaccine', icon: <Calendar className="w-5 h-5" /> },
                   { step: 2, title: 'Location', icon: <MapPin className="w-5 h-5" /> },
                   { step: 3, title: 'Confirmation', icon: <CheckCircle className="w-5 h-5" /> }
                 ].map((item, index) => (
                   <div key={item.step} className="flex items-center">
-                    <div className={`flex flex-col items-center ${index < 2 ? 'mr-8' : ''}`}>
+                    <div className="flex flex-col items-center">
                       <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold text-sm transition-colors ${
                         currentStep >= item.step 
-                          ? 'bg-slate-700 text-white shadow-lg' 
+                          ? 'bg-blue-600 text-white shadow-lg' 
                           : 'bg-slate-200 text-slate-500'
                       }`}>
                         {currentStep > item.step ? <CheckCircle className="w-5 h-5" /> : item.icon}
                       </div>
                       <span className={`text-sm font-medium mt-2 ${
-                        currentStep >= item.step ? 'text-slate-700' : 'text-slate-500'
+                        currentStep >= item.step ? 'text-blue-700' : 'text-slate-500'
                       }`}>
                         {item.title}
                       </span>
                     </div>
                     {index < 2 && (
-                      <div className={`w-16 h-0.5 ${
-                        currentStep > item.step ? 'bg-slate-700' : 'bg-slate-200'
+                      <div className={`w-16 h-0.5 mx-4 ${
+                        currentStep > item.step ? 'bg-blue-600' : 'bg-slate-200'
                       }`} />
                     )}
                   </div>
@@ -314,7 +322,6 @@ export default function VaccinationBookingPage() {
                 <h2 className="text-2xl font-bold text-slate-900 mb-8">Select Date, Time & Vaccine Type</h2>
                 
                 <div className="grid md:grid-cols-2 gap-8">
-                  {/* Date and Vaccine Selection */}
                   <div className="space-y-6">
                     <div>
                       <label className="block text-sm font-semibold text-slate-700 mb-3">
@@ -325,7 +332,7 @@ export default function VaccinationBookingPage() {
                         min={today}
                         value={bookingForm.date}
                         onChange={(e) => handleInputChange('date', e.target.value)}
-                        className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors"
+                        className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                         required
                       />
                     </div>
@@ -337,7 +344,7 @@ export default function VaccinationBookingPage() {
                       <select
                         value={bookingForm.vaccineType}
                         onChange={(e) => handleInputChange('vaccineType', e.target.value)}
-                        className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors appearance-none"
+                        className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors appearance-none bg-white"
                         required
                       >
                         <option value="">Select vaccine type</option>
@@ -348,12 +355,11 @@ export default function VaccinationBookingPage() {
                     </div>
                   </div>
 
-                  {/* Time Slot Selection */}
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-3">
                       Available Time Slots *
                     </label>
-                    <div className="grid grid-cols-2 gap-3 max-h-80 overflow-y-auto">
+                    <div className="grid grid-cols-2 gap-3 max-h-80 overflow-y-auto pr-2">
                       {timeSlots.map((slot) => (
                         <button
                           key={slot.time}
@@ -362,9 +368,9 @@ export default function VaccinationBookingPage() {
                           onClick={() => handleInputChange('time', slot.time)}
                           className={`p-3 rounded-xl border-2 text-sm font-medium transition-all ${
                             bookingForm.time === slot.time
-                              ? 'border-slate-700 bg-slate-100 text-slate-800'
+                              ? 'border-blue-600 bg-blue-50 text-blue-700'
                               : slot.available
-                              ? 'border-slate-200 hover:border-slate-300 text-slate-700 hover:bg-slate-50'
+                              ? 'border-slate-200 hover:border-blue-400 text-slate-700 hover:bg-blue-50'
                               : 'border-slate-200 bg-slate-100 text-slate-400 cursor-not-allowed'
                           }`}
                         >
@@ -395,15 +401,15 @@ export default function VaccinationBookingPage() {
                       whileHover={{ y: -2 }}
                       className={`p-6 border-2 rounded-2xl cursor-pointer transition-all ${
                         bookingForm.hospital === hospital.id
-                          ? 'border-slate-700 bg-slate-50'
-                          : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                          ? 'border-blue-600 bg-blue-50'
+                          : 'border-slate-200 hover:border-blue-400 hover:bg-blue-50'
                       }`}
                       onClick={() => handleHospitalSelect(hospital.id)}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex items-start space-x-4">
-                          <div className="w-12 h-12 bg-gradient-to-r from-slate-100 to-stone-100 rounded-xl flex items-center justify-center">
-                            <Building className="w-6 h-6 text-slate-600" />
+                          <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
+                            <Building className="w-6 h-6 text-blue-600" />
                           </div>
                           <div className="flex-grow">
                             <h3 className="text-lg font-bold text-slate-900 mb-2">{hospital.name}</h3>
@@ -416,21 +422,17 @@ export default function VaccinationBookingPage() {
                                 <Phone className="w-4 h-4 mr-2" />
                                 <span className="text-sm">{hospital.phone}</span>
                               </div>
-                              <div className="flex items-center space-x-4">
-                                <div className="flex items-center">
-                                  <span className="text-slate-500 mr-1">★</span>
-                                  <span className="text-sm font-medium">{hospital.rating}</span>
-                                </div>
-                                <span className="text-sm text-slate-500">{hospital.distance} away</span>
-                              </div>
                             </div>
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-sm text-slate-600 mb-2">Available Vaccines:</div>
-                          <div className="flex flex-wrap gap-1">
+                          <div className="flex items-center text-amber-500 mb-2">
+                            <span className="mr-1">★</span>
+                            <span className="text-sm font-bold">{hospital.rating}</span>
+                          </div>
+                          <div className="flex flex-wrap gap-1 justify-end">
                             {hospital.availableVaccines.slice(0, 3).map((vaccine) => (
-                              <span key={vaccine} className="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded-full">
+                              <span key={vaccine} className="text-xs bg-emerald-100 text-emerald-800 px-2 py-1 rounded-full">
                                 {vaccine}
                               </span>
                             ))}
@@ -452,69 +454,35 @@ export default function VaccinationBookingPage() {
                 <h2 className="text-2xl font-bold text-slate-900 mb-8">Confirm Your Details</h2>
                 
                 <div className="grid md:grid-cols-2 gap-8">
-                  {/* Patient Information */}
                   <div className="space-y-6">
-                    <h3 className="text-lg font-semibold text-slate-900 mb-4">Patient Information</h3>
+                    <h3 className="text-lg font-semibold text-slate-900">Patient Information</h3>
                     
                     <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        value={bookingForm.patientName}
-                        onChange={(e) => handleInputChange('patientName', e.target.value)}
-                        className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors"
-                        required
-                      />
+                      <label className="block text-sm font-semibold text-slate-700 mb-2">Full Name *</label>
+                      <input type="text" value={bookingForm.patientName} onChange={(e) => handleInputChange('patientName', e.target.value)} className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">
-                        Phone Number *
-                      </label>
-                      <input
-                        type="tel"
-                        value={bookingForm.patientPhone}
-                        onChange={(e) => handleInputChange('patientPhone', e.target.value)}
-                        className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors"
-                        required
-                      />
+                      <label className="block text-sm font-semibold text-slate-700 mb-2">Phone Number *</label>
+                      <input type="tel" value={bookingForm.patientPhone} onChange={(e) => handleInputChange('patientPhone', e.target.value)} className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        value={bookingForm.patientEmail}
-                        onChange={(e) => handleInputChange('patientEmail', e.target.value)}
-                        className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors"
-                        required
-                      />
+                      <label className="block text-sm font-semibold text-slate-700 mb-2">Email Address *</label>
+                      <input type="email" value={bookingForm.patientEmail} onChange={(e) => handleInputChange('patientEmail', e.target.value)} className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">
-                        Additional Notes (Optional)
-                      </label>
-                      <textarea
-                        value={bookingForm.notes}
-                        onChange={(e) => handleInputChange('notes', e.target.value)}
-                        rows={3}
-                        className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-600 focus:border-slate-600 transition-colors resize-none"
-                        placeholder="Any special requirements or notes..."
-                      />
+                      <label className="block text-sm font-semibold text-slate-700 mb-2">Additional Notes (Optional)</label>
+                      <textarea value={bookingForm.notes} onChange={(e) => handleInputChange('notes', e.target.value)} rows={3} className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none" placeholder="Any special requirements or notes..."/>
                     </div>
                   </div>
 
-                  {/* Booking Summary */}
                   <div>
                     <h3 className="text-lg font-semibold text-slate-900 mb-4">Appointment Summary</h3>
-                    <div className="bg-slate-50 rounded-2xl p-6 space-y-4 border border-slate-100">
+                    <div className="bg-blue-50 rounded-2xl p-6 space-y-4 border border-blue-100">
                       <div className="flex items-center">
-                        <Calendar className="w-5 h-5 text-slate-600 mr-3" />
+                        <Calendar className="w-5 h-5 text-blue-600 mr-3" />
                         <div>
                           <p className="font-medium text-slate-900">Date & Time</p>
                           <p className="text-sm text-slate-600">
@@ -524,7 +492,7 @@ export default function VaccinationBookingPage() {
                       </div>
 
                       <div className="flex items-center">
-                        <Syringe className="w-5 h-5 text-slate-600 mr-3" />
+                        <Syringe className="w-5 h-5 text-blue-600 mr-3" />
                         <div>
                           <p className="font-medium text-slate-900">Vaccine Type</p>
                           <p className="text-sm text-slate-600">{bookingForm.vaccineType || 'Not selected'}</p>
@@ -532,28 +500,22 @@ export default function VaccinationBookingPage() {
                       </div>
 
                       <div className="flex items-start">
-                        <MapPin className="w-5 h-5 text-slate-600 mr-3 mt-0.5" />
+                        <MapPin className="w-5 h-5 text-blue-600 mr-3 mt-0.5" />
                         <div>
                           <p className="font-medium text-slate-900">Healthcare Facility</p>
-                          <p className="text-sm text-slate-600">
-                            {selectedHospitalDetails?.name || 'Not selected'}
-                          </p>
+                          <p className="text-sm text-slate-600">{selectedHospitalDetails?.name || 'Not selected'}</p>
                           {selectedHospitalDetails && (
-                            <p className="text-xs text-slate-500 mt-1">
-                              {selectedHospitalDetails.address}
-                            </p>
+                            <p className="text-xs text-slate-500 mt-1">{selectedHospitalDetails.address}</p>
                           )}
                         </div>
                       </div>
 
-                      <div className="border-t border-slate-200 pt-4">
-                        <div className="flex items-center text-slate-700">
+                      <div className="border-t border-blue-200 pt-4">
+                        <div className="flex items-center text-emerald-700">
                           <CheckCircle className="w-5 h-5 mr-2" />
                           <span className="font-medium">Free of Charge</span>
                         </div>
-                        <p className="text-xs text-slate-500 mt-1">
-                          Government sponsored vaccination program
-                        </p>
+                        <p className="text-xs text-slate-500 mt-1">Government sponsored vaccination program</p>
                       </div>
                     </div>
                   </div>
@@ -569,7 +531,7 @@ export default function VaccinationBookingPage() {
                 className={`px-6 py-3 rounded-xl font-semibold transition-colors ${
                   currentStep === 1
                     ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
-                    : 'bg-slate-600 text-white hover:bg-slate-700'
+                    : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
                 }`}
               >
                 Previous
@@ -580,7 +542,7 @@ export default function VaccinationBookingPage() {
                   <div
                     key={step}
                     className={`w-2 h-2 rounded-full transition-colors ${
-                      currentStep >= step ? 'bg-slate-700' : 'bg-slate-300'
+                      currentStep >= step ? 'bg-blue-600' : 'bg-slate-300'
                     }`}
                   />
                 ))}
@@ -592,7 +554,7 @@ export default function VaccinationBookingPage() {
                   disabled={!isStepValid(currentStep)}
                   className={`px-6 py-3 rounded-xl font-semibold transition-colors flex items-center ${
                     isStepValid(currentStep)
-                      ? 'bg-slate-700 text-white hover:bg-slate-800'
+                      ? 'bg-blue-600 text-white hover:bg-blue-700'
                       : 'bg-slate-200 text-slate-400 cursor-not-allowed'
                   }`}
                 >
@@ -605,7 +567,7 @@ export default function VaccinationBookingPage() {
                   disabled={!isStepValid(currentStep)}
                   className={`px-8 py-3 rounded-xl font-semibold transition-colors flex items-center ${
                     isStepValid(currentStep)
-                      ? 'bg-slate-700 text-white hover:bg-slate-800'
+                      ? 'bg-blue-600 text-white hover:bg-blue-700'
                       : 'bg-slate-200 text-slate-400 cursor-not-allowed'
                   }`}
                 >

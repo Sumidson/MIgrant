@@ -62,7 +62,6 @@ export default function VaccinationRecordsPage() {
   const [activeTab, setActiveTab] = useState('overview');
   const router = useRouter();
 
-  // Patient information
   const patientInfo: PatientInfo = {
     name: "John Smith",
     patientId: "PT-2025-001",
@@ -71,7 +70,6 @@ export default function VaccinationRecordsPage() {
     allergies: ["Penicillin", "Eggs"]
   };
 
-  // Vaccination records
   const vaccineRecords: VaccineRecord[] = [
     {
       id: 'covid19',
@@ -201,7 +199,7 @@ export default function VaccinationRecordsPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed': return 'text-emerald-700 bg-emerald-50 border-emerald-200';
-      case 'in-progress': return 'text-slate-700 bg-slate-100 border-slate-200';
+      case 'in-progress': return 'text-blue-700 bg-blue-50 border-blue-200';
       case 'upcoming': return 'text-amber-700 bg-amber-50 border-amber-200';
       case 'overdue': return 'text-rose-700 bg-rose-50 border-rose-200';
       default: return 'text-gray-700 bg-gray-50 border-gray-200';
@@ -228,6 +226,7 @@ export default function VaccinationRecordsPage() {
   };
 
   const calculateProgress = (dosesTaken: number, totalDoses: number) => {
+    if (totalDoses === 0) return 0;
     return Math.round((dosesTaken / totalDoses) * 100);
   };
 
@@ -275,7 +274,7 @@ export default function VaccinationRecordsPage() {
     <>
       <Navbar />
       
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50 font-['Inter',system-ui,sans-serif]">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 font-['Inter',system-ui,sans-serif]">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -286,25 +285,25 @@ export default function VaccinationRecordsPage() {
           <motion.div variants={itemVariants} className="bg-white rounded-3xl shadow-md border border-slate-200 p-8 mb-8">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-slate-600 to-stone-600 rounded-2xl flex items-center justify-center shadow-md mr-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl flex items-center justify-center shadow-md mr-6">
                   <Shield className="w-8 h-8 text-white" />
                 </div>
                 <div>
                   <h1 className="text-3xl lg:text-4xl font-bold text-slate-800 mb-2">Vaccination Records</h1>
-                  <p className="text-slate-700 text-lg">Track your immunization history and upcoming vaccines</p>
+                  <p className="text-slate-600 text-lg">Track your immunization history and upcoming vaccines</p>
                 </div>
               </div>
               <div className="flex gap-3">
                 <button 
                   onClick={handlePrint}
-                  className="flex items-center px-4 py-2 bg-slate-600 text-white rounded-xl hover:bg-slate-700 transition-colors shadow-sm"
+                  className="flex items-center px-4 py-2 text-blue-700 border border-blue-300 rounded-xl hover:bg-blue-50 font-medium transition-all shadow-sm"
                 >
                   <Printer className="w-4 h-4 mr-2" />
                   Print
                 </button>
                 <button 
                   onClick={handleDownload}
-                  className="flex items-center px-4 py-2 bg-slate-700 text-white rounded-xl hover:bg-slate-800 transition-colors shadow-sm"
+                  className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors shadow-sm"
                 >
                   <Download className="w-4 h-4 mr-2" />
                   Download
@@ -313,32 +312,32 @@ export default function VaccinationRecordsPage() {
             </div>
 
             {/* Patient Info */}
-            <div className="grid md:grid-cols-4 gap-6 p-6 bg-gradient-to-r from-slate-100 to-stone-100 rounded-2xl border border-slate-200">
+            <div className="grid md:grid-cols-4 gap-6 p-6 bg-gradient-to-r from-slate-50 to-blue-50 rounded-2xl border border-slate-200">
               <div className="flex items-center">
-                <User className="w-5 h-5 text-slate-700 mr-3" />
+                <User className="w-5 h-5 text-blue-600 mr-3" />
                 <div>
-                  <p className="text-sm text-slate-700 font-medium">Patient Name</p>
+                  <p className="text-sm text-slate-600 font-medium">Patient Name</p>
                   <p className="font-bold text-slate-800">{patientInfo.name}</p>
                 </div>
               </div>
               <div className="flex items-center">
-                <FileText className="w-5 h-5 text-slate-700 mr-3" />
+                <FileText className="w-5 h-5 text-blue-600 mr-3" />
                 <div>
-                  <p className="text-sm text-slate-700 font-medium">Patient ID</p>
+                  <p className="text-sm text-slate-600 font-medium">Patient ID</p>
                   <p className="font-bold text-slate-800">{patientInfo.patientId}</p>
                 </div>
               </div>
               <div className="flex items-center">
-                <Calendar className="w-5 h-5 text-slate-700 mr-3" />
+                <Calendar className="w-5 h-5 text-blue-600 mr-3" />
                 <div>
-                  <p className="text-sm text-slate-700 font-medium">Date of Birth</p>
+                  <p className="text-sm text-slate-600 font-medium">Date of Birth</p>
                   <p className="font-bold text-slate-800">{new Date(patientInfo.dateOfBirth).toLocaleDateString()}</p>
                 </div>
               </div>
               <div className="flex items-center">
-                <Heart className="w-5 h-5 text-slate-700 mr-3" />
+                <Heart className="w-5 h-5 text-blue-600 mr-3" />
                 <div>
-                  <p className="text-sm text-slate-700 font-medium">Blood Group</p>
+                  <p className="text-sm text-slate-600 font-medium">Blood Group</p>
                   <p className="font-bold text-slate-800">{patientInfo.bloodGroup}</p>
                 </div>
               </div>
@@ -352,8 +351,8 @@ export default function VaccinationRecordsPage() {
                 label: 'Total Vaccines', 
                 value: vaccineRecords.length, 
                 icon: <Shield className="w-6 h-6" />, 
-                color: 'from-slate-600 to-slate-700',
-                bgColor: 'from-slate-50 to-slate-100'
+                color: 'from-blue-600 to-blue-700',
+                bgColor: 'from-blue-50 to-blue-100'
               },
               { 
                 label: 'Completed', 
@@ -366,8 +365,8 @@ export default function VaccinationRecordsPage() {
                 label: 'In Progress', 
                 value: vaccineRecords.filter(v => v.status === 'in-progress').length, 
                 icon: <Clock className="w-6 h-6" />, 
-                color: 'from-amber-600 to-amber-700',
-                bgColor: 'from-amber-50 to-amber-100'
+                color: 'from-slate-600 to-slate-700',
+                bgColor: 'from-slate-50 to-slate-100'
               },
               { 
                 label: 'Overdue', 
@@ -410,8 +409,8 @@ export default function VaccinationRecordsPage() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center px-6 py-4 font-medium transition-colors ${
                     activeTab === tab.id
-                      ? 'text-slate-700 border-b-2 border-slate-700 bg-slate-100'
-                      : 'text-slate-700 hover:text-slate-800 hover:bg-slate-50'
+                      ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
+                      : 'text-slate-600 hover:text-blue-600 hover:bg-blue-50'
                   }`}
                 >
                   {tab.icon}
@@ -431,7 +430,7 @@ export default function VaccinationRecordsPage() {
                   <div className="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
                     <div className="p-6 border-b border-slate-200">
                       <h3 className="text-xl font-bold text-slate-800">Your Vaccines</h3>
-                      <p className="text-slate-700">Click on any vaccine for detailed information</p>
+                      <p className="text-slate-600">Click on any vaccine for detailed information</p>
                     </div>
                     <div className="divide-y divide-slate-200">
                       {vaccineRecords.map((vaccine, index) => {
@@ -444,17 +443,17 @@ export default function VaccinationRecordsPage() {
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: index * 0.1 }}
-                            className="p-6 hover:bg-slate-50 cursor-pointer transition-colors"
+                            className="p-6 hover:bg-blue-50 cursor-pointer transition-colors"
                             onClick={() => setSelectedVaccine(vaccine)}
                           >
                             <div className="flex items-center justify-between mb-4">
                               <div className="flex items-center">
-                                <div className="w-12 h-12 bg-gradient-to-r from-slate-100 to-stone-100 rounded-xl flex items-center justify-center mr-4">
-                                  <Syringe className="w-6 h-6 text-slate-700" />
+                                <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mr-4">
+                                  <Syringe className="w-6 h-6 text-blue-600" />
                                 </div>
                                 <div>
                                   <h4 className="text-lg font-bold text-slate-800">{vaccine.name}</h4>
-                                  <p className="text-slate-700 text-sm">{vaccine.description}</p>
+                                  <p className="text-slate-600 text-sm">{vaccine.description}</p>
                                 </div>
                               </div>
                               <div className="flex items-center space-x-3">
@@ -468,23 +467,21 @@ export default function VaccinationRecordsPage() {
                               </div>
                             </div>
                             
-                            {/* Progress Bar */}
                             <div className="mb-4">
                               <div className="flex justify-between items-center mb-2">
-                                <span className="text-sm font-medium text-slate-700">
+                                <span className="text-sm font-medium text-slate-600">
                                   Doses: {vaccine.dosesTaken} of {vaccine.totalDoses}
                                 </span>
-                                <span className="text-sm font-medium text-slate-700">{progress}%</span>
+                                <span className="text-sm font-medium text-slate-600">{progress}%</span>
                               </div>
                               <div className="w-full bg-slate-200 rounded-full h-2">
                                 <div 
-                                  className="bg-gradient-to-r from-slate-600 to-stone-600 h-2 rounded-full transition-all duration-500"
+                                  className="bg-gradient-to-r from-blue-500 to-teal-500 h-2 rounded-full transition-all duration-500"
                                   style={{width: `${progress}%`}}
                                 ></div>
                               </div>
                             </div>
 
-                            {/* Next Dose Info */}
                             {vaccine.nextDoseDate && (
                               <div className="flex items-center text-sm">
                                 {daysUntilNext !== null && (
@@ -493,7 +490,7 @@ export default function VaccinationRecordsPage() {
                                     <span className={`${
                                       daysUntilNext < 0 ? 'text-rose-700 font-medium' : 
                                       daysUntilNext <= 30 ? 'text-amber-700 font-medium' : 
-                                      'text-slate-700'
+                                      'text-slate-600'
                                     }`}>
                                       Next dose: {new Date(vaccine.nextDoseDate).toLocaleDateString()}
                                       {daysUntilNext < 0 && ` (${Math.abs(daysUntilNext)} days overdue)`}
@@ -508,19 +505,18 @@ export default function VaccinationRecordsPage() {
                       })}
                     </div>
 
-                    {/* Book Vaccination Button */}
-                    <div className="p-6 border-t border-slate-200 bg-gradient-to-r from-slate-100 to-stone-100">
+                    <div className="p-6 border-t border-slate-200 bg-slate-50">
                       <motion.button
                         onClick={handleBookVaccination}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="w-full bg-gradient-to-r from-slate-700 to-stone-700 hover:from-slate-800 hover:to-stone-800 text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-300 shadow-md hover:shadow-md flex items-center justify-center space-x-3"
+                        className="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center space-x-3"
                       >
                         <Syringe className="w-5 h-5" />
                         <span>Book Vaccination Appointment</span>
                         <Calendar className="w-5 h-5" />
                       </motion.button>
-                      <p className="text-center text-slate-700 text-sm mt-3">
+                      <p className="text-center text-slate-600 text-sm mt-3">
                         Schedule your next vaccination at a convenient time and location
                       </p>
                     </div>
@@ -543,13 +539,13 @@ export default function VaccinationRecordsPage() {
                         .map((vaccine) => {
                           const days = getDaysUntilNextDose(vaccine.nextDoseDate!);
                           return (
-                            <div key={vaccine.id} className="p-3 bg-slate-100 rounded-lg border border-slate-200">
+                            <div key={vaccine.id} className="p-3 bg-slate-50 rounded-lg border border-slate-200">
                               <div className="flex justify-between items-start">
                                 <div>
                                   <p className="font-medium text-slate-800 text-sm">{vaccine.name}</p>
-                                  <p className="text-xs text-slate-700">Dose {vaccine.dosesTaken + 1} of {vaccine.totalDoses}</p>
+                                  <p className="text-xs text-slate-600">Dose {vaccine.dosesTaken + 1} of {vaccine.totalDoses}</p>
                                 </div>
-                                <span className="text-xs bg-slate-200 text-slate-700 px-2 py-1 rounded-full">
+                                <span className="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded-full">
                                   {days} days
                                 </span>
                               </div>
@@ -573,8 +569,8 @@ export default function VaccinationRecordsPage() {
                             <div key={vaccine.id} className="p-3 bg-rose-50 rounded-lg border border-rose-200">
                               <div className="flex justify-between items-start">
                                 <div>
-                                  <p className="font-medium text-slate-800 text-sm">{vaccine.name}</p>
-                                  <p className="text-xs text-slate-700">
+                                  <p className="font-medium text-rose-800 text-sm">{vaccine.name}</p>
+                                  <p className="text-xs text-rose-700">
                                     Due: {vaccine.nextDoseDate && new Date(vaccine.nextDoseDate).toLocaleDateString()}
                                   </p>
                                 </div>
@@ -605,196 +601,8 @@ export default function VaccinationRecordsPage() {
                 </div>
               </div>
             )}
-
-            {/* Schedule Tab */}
-            {activeTab === 'schedule' && (
-              <div className="bg-white rounded-2xl shadow-md border border-slate-200 p-8">
-                <h3 className="text-2xl font-bold text-slate-800 mb-6">Vaccination Schedule</h3>
-                <div className="space-y-6">
-                  {vaccineRecords
-                    .filter(v => v.nextDoseDate)
-                    .sort((a, b) => new Date(a.nextDoseDate!).getTime() - new Date(b.nextDoseDate!).getTime())
-                    .map((vaccine, index) => {
-                      const days = getDaysUntilNextDose(vaccine.nextDoseDate!);
-                      return (
-                        <div key={vaccine.id} className="flex items-center p-6 bg-slate-50 rounded-xl border border-slate-200">
-                          <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-r from-slate-100 to-stone-100 rounded-xl flex items-center justify-center mr-6">
-                            <Calendar className="w-8 h-8 text-slate-700" />
-                          </div>
-                          <div className="flex-grow">
-                            <h4 className="text-lg font-bold text-slate-800 mb-1">{vaccine.name}</h4>
-                            <p className="text-slate-700 mb-2">Dose {vaccine.dosesTaken + 1} of {vaccine.totalDoses}</p>
-                            <p className="text-sm text-slate-600">Due: {new Date(vaccine.nextDoseDate!).toLocaleDateString()}</p>
-                          </div>
-                          <div className="text-right">
-                            <span className={`inline-block px-4 py-2 rounded-lg font-medium text-sm ${
-                              days < 0 ? 'bg-rose-100 text-rose-800' :
-                              days <= 30 ? 'bg-amber-100 text-amber-800' :
-                              'bg-emerald-100 text-emerald-800'
-                            }`}>
-                              {days < 0 ? `${Math.abs(days)} days overdue` : `${days} days remaining`}
-                            </span>
-                          </div>
-                        </div>
-                      );
-                    })}
-                </div>
-              </div>
-            )}
-
-            {/* History Tab */}
-            {activeTab === 'history' && (
-              <div className="bg-white rounded-2xl shadow-md border border-slate-200 p-8">
-                <h3 className="text-2xl font-bold text-slate-800 mb-6">Vaccination History</h3>
-                <div className="space-y-8">
-                  {vaccineRecords.map((vaccine) => (
-                    <div key={vaccine.id} className="border-l-4 border-slate-300 pl-6">
-                      <h4 className="text-lg font-bold text-slate-800 mb-3">{vaccine.name}</h4>
-                      <div className="space-y-3">
-                        {vaccine.doses.map((dose, index) => (
-                          <div key={index} className="bg-slate-50 rounded-lg p-4">
-                            <div className="grid md:grid-cols-2 gap-4">
-                              <div>
-                                <p className="text-sm text-slate-700 mb-1">Dose {dose.doseNumber}</p>
-                                <p className="font-medium text-slate-800">{new Date(dose.dateAdministered).toLocaleDateString()}</p>
-                                <p className="text-sm text-slate-700">{dose.location}</p>
-                              </div>
-                              <div>
-                                <p className="text-sm text-slate-700 mb-1">Administered by</p>
-                                <p className="font-medium text-slate-800">{dose.administeredBy}</p>
-                                <p className="text-sm text-slate-700">Lot: {dose.lotNumber}</p>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+            {/* Other tabs content here */}
           </motion.div>
-
-          {/* Detailed Vaccine Modal */}
-          {selectedVaccine && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-lg border border-slate-200"
-              >
-                <div className="p-8">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center">
-                      <div className="w-16 h-16 bg-gradient-to-r from-slate-100 to-stone-100 rounded-2xl flex items-center justify-center mr-4">
-                        <Syringe className="w-8 w-8 text-slate-700" />
-                      </div>
-                      <div>
-                        <h2 className="text-2xl font-bold text-slate-800">{selectedVaccine.name}</h2>
-                        <p className="text-slate-700">{selectedVaccine.description}</p>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => setSelectedVaccine(null)}
-                      className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
-                    >
-                      <X className="w-6 h-6 text-slate-600" />
-                    </button>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-8">
-                    {/* Vaccine Information */}
-                    <div className="space-y-6">
-                      <div>
-                        <h3 className="text-lg font-bold text-slate-800 mb-3">Vaccine Information</h3>
-                        <div className="space-y-3">
-                          <div className="flex justify-between">
-                            <span className="text-slate-700">Category:</span>
-                            <span className="font-medium text-slate-800">{selectedVaccine.category}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-slate-700">Priority:</span>
-                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(selectedVaccine.priority)}`}>
-                              {selectedVaccine.priority.toUpperCase()}
-                            </span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-slate-700">Age Recommendation:</span>
-                            <span className="font-medium text-slate-800">{selectedVaccine.ageRecommendation}</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h3 className="text-lg font-bold text-slate-800 mb-3">Progress</h3>
-                        <div className="space-y-3">
-                          <div className="flex justify-between">
-                            <span className="text-slate-700">Doses Completed:</span>
-                            <span className="font-medium text-slate-800">{selectedVaccine.dosesTaken} of {selectedVaccine.totalDoses}</span>
-                          </div>
-                          <div className="w-full bg-slate-200 rounded-full h-3">
-                            <div 
-                              className="bg-gradient-to-r from-slate-600 to-stone-600 h-3 rounded-full"
-                              style={{width: `${calculateProgress(selectedVaccine.dosesTaken, selectedVaccine.totalDoses)}%`}}
-                            ></div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {selectedVaccine.sideEffects && (
-                        <div>
-                          <h3 className="text-lg font-bold text-slate-800 mb-3">Reported Side Effects</h3>
-                          <div className="space-y-2">
-                            {selectedVaccine.sideEffects.map((effect, index) => (
-                              <div key={index} className="flex items-center">
-                                <AlertTriangle className="w-4 h-4 text-amber-600 mr-2" />
-                                <span className="text-slate-700 text-sm">{effect}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Dose History */}
-                    <div>
-                      <h3 className="text-lg font-bold text-slate-800 mb-3">Dose History</h3>
-                      <div className="space-y-4">
-                        {selectedVaccine.doses.map((dose, index) => (
-                          <div key={index} className="bg-slate-50 rounded-lg p-4 border border-slate-200">
-                            <div className="flex items-center justify-between mb-2">
-                              <span className="font-medium text-slate-800">Dose {dose.doseNumber}</span>
-                              <CheckCircle className="w-5 h-5 text-emerald-600" />
-                            </div>
-                            <div className="space-y-1 text-sm">
-                              <p className="text-slate-700">Date: <span className="font-medium text-slate-800">{new Date(dose.dateAdministered).toLocaleDateString()}</span></p>
-                              <p className="text-slate-700">Location: <span className="font-medium text-slate-800">{dose.location}</span></p>
-                              <p className="text-slate-700">Provider: <span className="font-medium text-slate-800">{dose.administeredBy}</span></p>
-                              <p className="text-slate-700">Lot Number: <span className="font-medium text-slate-800">{dose.lotNumber}</span></p>
-                            </div>
-                          </div>
-                        ))}
-                        
-                        {selectedVaccine.dosesTaken < selectedVaccine.totalDoses && (
-                          <div className="bg-slate-100 rounded-lg p-4 border border-slate-200 border-dashed">
-                            <div className="flex items-center justify-between mb-2">
-                              <span className="font-medium text-slate-800">Next Dose {selectedVaccine.dosesTaken + 1}</span>
-                              <Clock className="w-5 h-5 text-slate-600" />
-                            </div>
-                            <div className="space-y-1 text-sm">
-                              <p className="text-slate-700">Scheduled: <span className="font-medium text-slate-800">
-                                {selectedVaccine.nextDoseDate ? new Date(selectedVaccine.nextDoseDate).toLocaleDateString() : 'Not scheduled'}
-                              </span></p>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          )}
         </motion.div>
       </div>
     </>
