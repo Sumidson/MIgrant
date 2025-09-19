@@ -1,14 +1,13 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Navbar from '@/components/navbar'
+import LoadingLogo from '@/components/loading'
 import { 
   Shield,
   Users,
-  Heart,
   FileText,
   MapPin,
-  CheckCircle,
   Target,
   Lightbulb,
   Award,
@@ -18,7 +17,6 @@ import {
   Database,
   Activity,
   AlertTriangle,
-  ArrowRight,
   Star,
   Phone,
   Clock
@@ -26,6 +24,16 @@ import {
 
 export default function AboutPage() {
   const [activeTab, setActiveTab] = useState('problem')
+  const [isLoading, setIsLoading] = useState(true)
+
+  // Simulate page loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 1200) // Show loading for 1.2 seconds
+
+    return () => clearTimeout(timer)
+  }, [])
 
   const problemChallenges = [
     {
@@ -85,6 +93,15 @@ export default function AboutPage() {
     { goal: 'SDG 8', title: 'Decent Work', description: 'Promoting inclusive and sustainable economic growth' },
     { goal: 'SDG 10', title: 'Reduced Inequalities', description: 'Reducing inequalities in healthcare access' }
   ]
+
+  // Show loading screen while page loads
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center">
+        <LoadingLogo />
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">

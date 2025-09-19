@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Navbar from '@/components/navbar'; // Added Navbar import
+import Navbar from '@/components/navbar';
+import LoadingLogo from '@/components/loading';
 import {
   FileText,
   Download,
@@ -13,9 +14,6 @@ import {
   Heart,
   Thermometer,
   Weight,
-  Ruler,
-  Eye,
-  Brain,
   Shield,
   AlertTriangle,
   CheckCircle,
@@ -61,6 +59,16 @@ interface PatientInfo {
 
 const HealthReportPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate loading data
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); // Show loading for 2 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const patientInfo: PatientInfo = {
     name: "John Smith",
@@ -226,9 +234,21 @@ const HealthReportPage: React.FC = () => {
     alert('PDF download functionality would be implemented here');
   };
 
+  // Show loading screen while data is being fetched
+  if (isLoading) {
+    return (
+      <>
+        <Navbar />
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+          <LoadingLogo />
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
-      <Navbar /> {/* Added Navbar component */}
+      <Navbar />
       <div className="min-h-screen bg-slate-50 py-8 px-4">
         <motion.div
           variants={containerVariants}

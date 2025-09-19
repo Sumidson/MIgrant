@@ -1,6 +1,7 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Navbar from '@/components/navbar'
+import LoadingLogo from '@/components/loading'
 import { 
   Shield,
   Mail,
@@ -21,6 +22,16 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [pageLoading, setPageLoading] = useState(true)
+
+  // Simulate page loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPageLoading(false)
+    }, 1000) // Show loading for 1 second
+
+    return () => clearTimeout(timer)
+  }, [])
 
   const userOptions = [
     {
@@ -71,6 +82,18 @@ export default function LoginPage() {
   // Close dropdown when clicking outside
   const handleClickOutside = () => {
     setIsDropdownOpen(false)
+  }
+
+  // Show loading screen while page loads
+  if (pageLoading) {
+    return (
+      <>
+        <Navbar />
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center">
+          <LoadingLogo />
+        </div>
+      </>
+    )
   }
 
   return (

@@ -1,7 +1,8 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Navbar from '../components/navbar'
+import LoadingLogo from '../components/loading'
 import { 
   Search,
   Users,
@@ -48,7 +49,17 @@ interface Stat {
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
+
+  // Simulate initial page load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 1500) // Show loading for 1.5 seconds
+
+    return () => clearTimeout(timer)
+  }, [])
 
   // Updated services array with the new "Trustworthy & Professional" color palette
   const services: Service[] = [
@@ -131,6 +142,15 @@ export default function Home() {
 
   const handleLinkClick = (href: string) => {
     router.push(href)
+  }
+
+  // Show loading screen during initial load
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <LoadingLogo />
+      </div>
+    )
   }
 
   return (
