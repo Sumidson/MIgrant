@@ -114,7 +114,7 @@ export default function Navbar() {
                 <AlertCircle className="h-3 w-3 mr-1.5" />
                 Emergency: 108
               </span>
-              <span className="cursor-pointer hover:text-blue-600 transition-colors">Help Desk</span>
+              <button onClick={() => handleLinkClick('/help')} className="cursor-pointer hover:text-blue-600 transition-colors">Help Desk</button>
             </div>
           </div>
         </div>
@@ -294,3 +294,4 @@ export default function Navbar() {
     </header>
   )
 }
+
