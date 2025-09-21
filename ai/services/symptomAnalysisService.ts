@@ -1,4 +1,5 @@
 import { SymptomAnalysis, AIResponse } from '../types';
+import { GEMINI_CONFIG, SYSTEM_PROMPTS } from '../config/gemini';
 
 export class SymptomAnalysisService {
   private static instance: SymptomAnalysisService;
@@ -12,19 +13,154 @@ export class SymptomAnalysisService {
 
   async analyzeSymptoms(symptoms: string[], patientAge?: number, gender?: string): Promise<AIResponse<SymptomAnalysis>> {
     try {
-      // Simulate AI processing delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Call backend API
+      const response = await fetch('/api/symptoms/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          symptoms,
+          patientAge,
+          patientGender: gender
+        })
+      });
 
-      const analysis = this.performSymptomAnalysis(symptoms, patientAge, gender);
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
 
+      const data = await response.json();
+      
+      if (data.success && data.data) {
+        return {
+          success: true,
+          data: data.data
+        };
+      } else {
+        throw new Error(data.error || 'Failed to analyze symptoms');
+      }
+    } catch (error) {
+      console.error('Symptom analysis API error:', error);
+      // Fallback to local processing
+      try {
+        const analysis = this.performSymptomAnalysis(symptoms, patientAge, gender);
+        return {
+          success: true,
+          data: analysis
+        };
+      } catch (fallbackError) {
+        return {
+          success: false,
+          error: fallbackError instanceof Error ? fallbackError.message : 'Analysis failed'
+        };
+      }
+    }
+  }
+
+  private async performAISymptomAnalysis(symptoms: string[], patientAge?: number, gender?: string): Promise<SymptomAnalysis> {
+    const prompt = this.buildSymptomAnalysisPrompt(symptoms, patientAge, gender);
+    
+    const requestBody = {
+      contents: [
+        {
+          parts: [
+            {
+              text: prompt
+            }
+          ]
+        }
+      ],
+      generationConfig: {
+        ...GEMINI_CONFIG.DEFAULT_CONFIG,
+        temperature: 0.3, // Lower temperature for more consistent medical analysis
+      }
+    };
+
+    const response = await fetch(`${GEMINI_CONFIG.API_URL}?key=${GEMINI_CONFIG.API_KEY}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody)
+    });
+
+    if (!response.ok) {
+      throw new Error(`Gemini API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    
+    if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+      const aiResponse = data.candidates[0].content.parts[0].text;
+      return this.parseAIResponse(aiResponse, symptoms);
+    } else {
+      throw new Error('Invalid response format from Gemini API');
+    }
+  }
+
+  private buildSymptomAnalysisPrompt(symptoms: string[], patientAge?: number, gender?: string): string {
+    const ageGenderInfo = patientAge && gender ? `Patient: ${patientAge} years old, ${gender}` : 'Patient information not provided';
+    
+    return `${SYSTEM_PROMPTS.SYMPTOM_ANALYSIS}
+
+${ageGenderInfo}
+Symptoms: ${symptoms.join(', ')}
+
+Please provide your analysis in the following JSON format:
+{
+  "severity": "low|medium|high|critical",
+  "suggestedConditions": [
+    {
+      "condition": "condition name",
+      "probability": 0.0-1.0,
+      "description": "brief description"
+    }
+  ],
+  "recommendations": [
+    "recommendation 1",
+    "recommendation 2"
+  ],
+  "urgency": "routine|urgent|emergency"
+}
+
+Respond only with valid JSON, no additional text.`;
+  }
+
+  private parseAIResponse(aiResponse: string, symptoms: string[]): SymptomAnalysis {
+    try {
+      // Clean the response to extract JSON
+      const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) {
+        throw new Error('No JSON found in AI response');
+      }
+      
+      const parsed = JSON.parse(jsonMatch[0]);
+      
       return {
-        success: true,
-        data: analysis
+        symptoms,
+        severity: parsed.severity || 'medium',
+        suggestedConditions: parsed.suggestedConditions || [],
+        recommendations: parsed.recommendations || ['Consult with a healthcare professional'],
+        urgency: parsed.urgency || 'routine'
       };
     } catch (error) {
+      console.error('Failed to parse AI response:', error);
+      // Return a safe fallback
       return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Analysis failed'
+        symptoms,
+        severity: 'medium',
+        suggestedConditions: [{
+          condition: 'General Health Concern',
+          probability: 0.5,
+          description: 'Symptoms require professional medical evaluation'
+        }],
+        recommendations: [
+          'Consult with a healthcare professional',
+          'Monitor symptoms closely',
+          'Seek immediate medical attention if symptoms worsen'
+        ],
+        urgency: 'routine'
       };
     }
   }

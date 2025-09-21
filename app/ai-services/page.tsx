@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { 
   Bot, 
   Brain, 
-  Heart, 
   Calendar, 
   TrendingUp, 
   Shield, 
@@ -146,7 +145,7 @@ export default function AIServicesPage() {
                   return (
                     <button
                       key={tab.key}
-                      onClick={() => setActiveDemo(tab.key as any)}
+                      onClick={() => setActiveDemo(tab.key as 'chat' | 'symptoms' | 'insights')}
                       className={`flex items-center px-6 py-4 border-b-2 font-medium transition-all ${
                         activeDemo === tab.key
                           ? 'border-blue-600 text-blue-600 bg-blue-50'

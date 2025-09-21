@@ -1,4 +1,5 @@
 import { HealthInsight, AIResponse } from '../types';
+import { GEMINI_CONFIG, SYSTEM_PROMPTS } from '../config/gemini';
 
 export class HealthInsightsService {
   private static instance: HealthInsightsService;
@@ -12,20 +13,156 @@ export class HealthInsightsService {
 
   async generateInsights(patientData: any): Promise<AIResponse<HealthInsight[]>> {
     try {
-      // Simulate AI processing delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Call backend API
+      const response = await fetch('/api/insights/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          patientData
+        })
+      });
 
-      const insights = this.analyzePatientData(patientData);
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
 
-      return {
-        success: true,
-        data: insights
-      };
+      const data = await response.json();
+      
+      if (data.success && data.data) {
+        return {
+          success: true,
+          data: data.data
+        };
+      } else {
+        throw new Error(data.error || 'Failed to generate insights');
+      }
     } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Insights generation failed'
-      };
+      console.error('Health insights API error:', error);
+      // Fallback to local processing
+      try {
+        const insights = this.analyzePatientData(patientData);
+        return {
+          success: true,
+          data: insights
+        };
+      } catch (fallbackError) {
+        return {
+          success: false,
+          error: fallbackError instanceof Error ? fallbackError.message : 'Insights generation failed'
+        };
+      }
+    }
+  }
+
+  private async performAIInsightsAnalysis(patientData: any): Promise<HealthInsight[]> {
+    const prompt = this.buildInsightsPrompt(patientData);
+    
+    const requestBody = {
+      contents: [
+        {
+          parts: [
+            {
+              text: prompt
+            }
+          ]
+        }
+      ],
+      generationConfig: {
+        ...GEMINI_CONFIG.DEFAULT_CONFIG,
+        temperature: 0.4, // Moderate temperature for balanced insights
+      }
+    };
+
+    const response = await fetch(`${GEMINI_CONFIG.API_URL}?key=${GEMINI_CONFIG.API_KEY}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody)
+    });
+
+    if (!response.ok) {
+      throw new Error(`Gemini API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    
+    if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+      const aiResponse = data.candidates[0].content.parts[0].text;
+      return this.parseInsightsResponse(aiResponse);
+    } else {
+      throw new Error('Invalid response format from Gemini API');
+    }
+  }
+
+  private buildInsightsPrompt(patientData: any): string {
+    const vitalsInfo = patientData.vitals ? `Vitals: ${JSON.stringify(patientData.vitals)}` : 'No vital signs data';
+    const appointmentsInfo = patientData.appointments ? `Appointments: ${JSON.stringify(patientData.appointments)}` : 'No appointment data';
+    const medicationsInfo = patientData.medications ? `Medications: ${JSON.stringify(patientData.medications)}` : 'No medication data';
+    
+    return `${SYSTEM_PROMPTS.HEALTH_INSIGHTS}
+
+Patient Data:
+${vitalsInfo}
+${appointmentsInfo}
+${medicationsInfo}
+
+Please provide health insights in the following JSON format:
+[
+  {
+    "id": "unique-id",
+    "type": "trend|alert|recommendation|achievement",
+    "title": "Insight title",
+    "description": "Detailed description",
+    "priority": "low|medium|high",
+    "category": "vitals|medication|appointment|lifestyle",
+    "timestamp": "2025-01-01T00:00:00.000Z",
+    "actionable": true|false,
+    "actionText": "Action button text (optional)"
+  }
+]
+
+Respond only with valid JSON array, no additional text.`;
+  }
+
+  private parseInsightsResponse(aiResponse: string): HealthInsight[] {
+    try {
+      // Clean the response to extract JSON
+      const jsonMatch = aiResponse.match(/\[[\s\S]*\]/);
+      if (!jsonMatch) {
+        throw new Error('No JSON array found in AI response');
+      }
+      
+      const parsed = JSON.parse(jsonMatch[0]);
+      
+      // Validate and format the insights
+      return parsed.map((insight: any, index: number) => ({
+        id: insight.id || `ai-insight-${Date.now()}-${index}`,
+        type: insight.type || 'recommendation',
+        title: insight.title || 'Health Insight',
+        description: insight.description || 'No description available',
+        priority: insight.priority || 'medium',
+        category: insight.category || 'lifestyle',
+        timestamp: insight.timestamp ? new Date(insight.timestamp) : new Date(),
+        actionable: insight.actionable || false,
+        actionText: insight.actionText
+      }));
+    } catch (error) {
+      console.error('Failed to parse AI insights response:', error);
+      // Return a safe fallback
+      return [{
+        id: `fallback-insight-${Date.now()}`,
+        type: 'recommendation',
+        title: 'Health Monitoring',
+        description: 'Continue regular health monitoring and consult with healthcare professionals as needed.',
+        priority: 'low',
+        category: 'lifestyle',
+        timestamp: new Date(),
+        actionable: true,
+        actionText: 'Learn More'
+      }];
     }
   }
 

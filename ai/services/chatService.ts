@@ -1,4 +1,5 @@
 import { ChatMessage, AIResponse } from '../types';
+import { GEMINI_CONFIG, SYSTEM_PROMPTS } from '../config/gemini';
 
 export class ChatService {
   private static instance: ChatService;
@@ -23,7 +24,51 @@ export class ChatService {
 
       this.messages.push(userMessage);
 
-      // Simulate AI processing
+      // Call backend API
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message,
+          context
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.success && data.message) {
+        const aiMessage: ChatMessage = {
+          id: (Date.now() + 1).toString(),
+          content: data.message,
+          role: 'assistant',
+          timestamp: new Date(),
+          type: 'text'
+        };
+
+        this.messages.push(aiMessage);
+
+        return {
+          success: true,
+          data: aiMessage
+        };
+      } else {
+        throw new Error(data.error || 'Failed to get AI response');
+      }
+    } catch (error) {
+      console.error('Chat service error:', error);
+      // Fallback to local processing
+      return this.processMessageLocally(message, context);
+    }
+  }
+
+  private async processMessageLocally(message: string, context?: Record<string, unknown>): Promise<AIResponse<ChatMessage>> {
+    try {
       const response = await this.processMessage(message, context);
       
       const aiMessage: ChatMessage = {
@@ -48,10 +93,73 @@ export class ChatService {
     }
   }
 
-  private async processMessage(message: string, _context?: Record<string, unknown>): Promise<string> {
-    // Simulate AI processing delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+  private async processMessage(message: string, context?: Record<string, unknown>): Promise<string> {
+    try {
+      // Call Gemini AI API
+      const response = await this.callGeminiAPI(message, context);
+      return response;
+    } catch (error) {
+      console.error('Gemini API error:', error);
+      // Fallback to rule-based responses if API fails
+      return this.getFallbackResponse(message);
+    }
+  }
 
+  private async callGeminiAPI(message: string, context?: Record<string, unknown>): Promise<string> {
+    const systemPrompt = this.buildSystemPrompt(context);
+    
+    const requestBody = {
+      contents: [
+        {
+          parts: [
+            {
+              text: `${systemPrompt}\n\nUser: ${message}`
+            }
+          ]
+        }
+      ],
+      generationConfig: GEMINI_CONFIG.DEFAULT_CONFIG,
+      safetySettings: GEMINI_CONFIG.SAFETY_SETTINGS
+    };
+
+    const response = await fetch(`${GEMINI_CONFIG.API_URL}?key=${GEMINI_CONFIG.API_KEY}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody)
+    });
+
+    if (!response.ok) {
+      throw new Error(`Gemini API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    
+    if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+      return data.candidates[0].content.parts[0].text;
+    } else {
+      throw new Error('Invalid response format from Gemini API');
+    }
+  }
+
+  private buildSystemPrompt(context?: Record<string, unknown>): string {
+    let prompt = SYSTEM_PROMPTS.CHAT_ASSISTANT;
+
+    if (context) {
+      if (context.userType === 'admin') {
+        prompt += '\n\nYou are currently assisting an admin user who manages the healthcare system. You can provide more detailed administrative guidance and system information.';
+      } else if (context.userType === 'patient') {
+        prompt += '\n\nYou are currently assisting a patient. Focus on their health concerns and provide supportive guidance.';
+      } else if (context.patientId) {
+        prompt += `\n\nYou are currently assisting with patient ID: ${context.patientId}. You can reference their medical history and provide personalized guidance.`;
+      }
+    }
+
+    return prompt;
+  }
+
+  private getFallbackResponse(message: string): string {
     const lowerMessage = message.toLowerCase();
 
     // Health-related responses

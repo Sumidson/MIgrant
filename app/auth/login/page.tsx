@@ -12,6 +12,7 @@ import {
   ArrowRight,
   ArrowLeft
 } from 'lucide-react'
+import AIChatWidget from '@/ai/components/AIChatWidget'
 
 export default function LoginPage() {
   const [loginMethod, setLoginMethod] = useState<'email' | 'phone'>('email')
@@ -21,6 +22,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [pageLoading, setPageLoading] = useState(true)
+  const [isChatOpen, setIsChatOpen] = useState(false)
 
   // Simulate page loading
   useEffect(() => {
@@ -321,6 +323,13 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
+
+      {/* AI Health Assistant */}
+      <AIChatWidget 
+        isOpen={isChatOpen}
+        onToggle={() => setIsChatOpen(!isChatOpen)}
+        context={{ userType: 'public', page: 'login' }}
+      />
     </>
   )
 }

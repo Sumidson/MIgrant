@@ -1,6 +1,6 @@
 # AI Services for MigrantCare
 
-This folder contains AI-powered features for the MigrantCare healthcare platform, designed specifically for migrant workers and their families.
+This folder contains AI-powered features for the MigrantCare healthcare platform, designed specifically for migrant workers and their families. The AI services are powered by Google's Gemini AI API for intelligent, context-aware responses.
 
 ## Features
 
@@ -105,11 +105,47 @@ import HealthInsightsPanel from '@/ai/components/HealthInsightsPanel'
 />
 ```
 
+## Gemini AI Integration
+
+The AI services are powered by Google's Gemini AI API with the following features:
+
+### Configuration (`config/gemini.ts`)
+- Centralized API key and configuration management
+- Custom system prompts for different use cases
+- Safety settings for medical content
+- Optimized generation parameters
+
+### API Features
+- **Real-time AI responses** using Gemini Pro model
+- **Context-aware conversations** with user type detection
+- **Medical safety filters** to prevent harmful content
+- **Fallback mechanisms** for API failures
+- **Structured JSON responses** for symptom analysis and insights
+
+### Safety & Compliance
+- Medical content safety filters
+- Conservative health recommendations
+- Professional medical consultation emphasis
+- Cultural sensitivity for migrant workers
+- No specific medical diagnoses provided
+
+## Testing
+
+Run the Gemini integration test:
+```typescript
+import { testGeminiIntegration } from '@/ai/test/gemini-test';
+
+// Test the AI integration
+testGeminiIntegration().then(success => {
+  console.log('AI integration test:', success ? 'PASSED' : 'FAILED');
+});
+```
+
 ## Future Enhancements
 
-- Integration with real AI models (OpenAI, etc.)
 - Voice-based interactions
 - Image analysis for medical documents
 - Predictive health analytics
 - Multi-language support expansion
 - Integration with wearable devices
+- Advanced medical knowledge base integration

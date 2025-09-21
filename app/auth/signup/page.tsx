@@ -19,6 +19,7 @@ import {
   Eye,
   EyeOff
 } from 'lucide-react'
+import AIChatWidget from '@/ai/components/AIChatWidget'
 
 interface FormData {
   // Step 1: Basic Info
@@ -49,6 +50,7 @@ export default function SignupPage() {
   const [currentStep, setCurrentStep] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [isChatOpen, setIsChatOpen] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const [formData, setFormData] = useState<FormData>({
@@ -633,6 +635,13 @@ export default function SignupPage() {
           </div>
         </div>
       </div>
+
+      {/* AI Health Assistant */}
+      <AIChatWidget 
+        isOpen={isChatOpen}
+        onToggle={() => setIsChatOpen(!isChatOpen)}
+        context={{ userType: 'public', page: 'signup' }}
+      />
     </>
   )
 }

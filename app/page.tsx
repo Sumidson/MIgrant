@@ -20,8 +20,7 @@ import {
   ArrowRight,
   PlayCircle,
   Plus,
-  Star,
-  Bot
+  Star
 } from 'lucide-react'
 import AIChatWidget from '@/ai/components/AIChatWidget'
 
@@ -228,17 +227,6 @@ export default function Home() {
                   Search
                 </button>
               </form>
-            </div>
-
-            {/* AI Assistant Button */}
-            <div className="flex justify-center mt-6">
-              <button
-                onClick={() => setIsChatOpen(true)}
-                className="flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-2xl hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
-              >
-                <Bot className="h-5 w-5 mr-2" />
-                Ask AI Health Assistant
-              </button>
             </div>
 
             {/* Hero Image/Illustration with Colorful Floating Elements */}
@@ -512,7 +500,7 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* AI Chat Widget */}
+      {/* AI Health Assistant - Always visible floating button */}
       <AIChatWidget 
         isOpen={isChatOpen}
         onToggle={() => setIsChatOpen(!isChatOpen)}

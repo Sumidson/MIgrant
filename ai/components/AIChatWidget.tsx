@@ -42,13 +42,22 @@ export default function AIChatWidget({ isOpen, onToggle, context }: AIChatWidget
       : 'bg-slate-100 text-slate-900 mr-12';
   };
 
-  if (!isOpen) return null;
-
   return (
     <div className="fixed bottom-4 right-4 z-50">
-      <div className={`bg-white rounded-2xl shadow-2xl border border-slate-200 transition-all duration-300 ${
-        isMinimized ? 'w-80 h-16' : 'w-96 h-[500px]'
-      }`}>
+      {!isOpen && (
+        <button
+          onClick={onToggle}
+          className="bg-gradient-to-r from-blue-600 to-teal-600 text-white p-4 rounded-full shadow-2xl hover:from-blue-700 hover:to-teal-700 transition-all duration-300 hover:scale-110 animate-pulse"
+          title="AI Health Assistant"
+        >
+          <Bot className="h-8 w-8" />
+        </button>
+      )}
+      
+      {isOpen && (
+        <div className={`bg-white rounded-2xl shadow-2xl border border-slate-200 transition-all duration-300 ${
+          isMinimized ? 'w-80 h-16' : 'w-96 h-[500px]'
+        }`}>
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-slate-200 bg-gradient-to-r from-blue-600 to-teal-600 text-white rounded-t-2xl">
           <div className="flex items-center space-x-2">
@@ -151,7 +160,8 @@ export default function AIChatWidget({ isOpen, onToggle, context }: AIChatWidget
             </div>
           </>
         )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

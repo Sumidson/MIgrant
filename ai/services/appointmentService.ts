@@ -157,8 +157,8 @@ export class AppointmentService {
 
   private performScheduleOptimization(appointments: any[]): any {
     // Simple optimization: sort by priority and suggest time slots
-    const sorted = appointments.sort((a, b) => {
-      const priorityOrder = { high: 3, medium: 2, low: 1 };
+    const sorted = appointments.sort((a: any, b: any) => {
+      const priorityOrder: { [key: string]: number } = { high: 3, medium: 2, low: 1 };
       return priorityOrder[b.priority] - priorityOrder[a.priority];
     });
 
