@@ -8,19 +8,17 @@ import {
   Lock,
   Eye,
   EyeOff,
-  ChevronDown,
-  UserCog,
-  User,
+  Phone,
   ArrowRight,
   ArrowLeft
 } from 'lucide-react'
 
 export default function LoginPage() {
-  const [userType, setUserType] = useState<'admin' | 'patient' | ''>('')
+  const [loginMethod, setLoginMethod] = useState<'email' | 'phone'>('email')
   const [email, setEmail] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [pageLoading, setPageLoading] = useState(true)
 
@@ -28,47 +26,61 @@ export default function LoginPage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setPageLoading(false)
-    }, 1000) // Show loading for 1 second
-
+    }, 1000)
     return () => clearTimeout(timer)
   }, [])
 
-  const userOptions = [
-    {
-      value: 'admin',
-      label: 'Admin',
-      icon: UserCog,
-      description: 'Healthcare Administrator'
-    },
-    {
-      value: 'patient',
-      label: 'Patient',
-      icon: User,
-      description: 'Migrant Worker'
-    }
-  ]
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!userType || !email || !password) {
+    
+    const loginIdentifier = loginMethod === 'email' ? email : phoneNumber
+    
+    if (!loginIdentifier || !password) {
       alert('Please fill in all fields')
       return
     }
 
     setIsLoading(true)
-    // Simulate login process
-    setTimeout(() => {
-      console.log('Login attempt:', { userType, email, password })
-      setIsLoading(false)
-      // Handle navigation based on userType
-      if (userType === 'admin') {
-        console.log('Redirecting to admin dashboard...')
-        // window.location.href = '/admin/dashboard'
+    
+    try {
+      // Call backend API for login
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000'}/api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          [loginMethod]: loginIdentifier,
+          password: password
+        })
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        console.log('Login successful:', data)
+        
+        if (data.token) {
+          localStorage.setItem('token', data.token)
+          localStorage.setItem('user', JSON.stringify(data.user))
+        }
+        
+        // Redirect based on user role from backend response
+        if (data.user?.role === 'admin') {
+          window.location.href = '/auth/admin/dashboard'
+        } else {
+          window.location.href = '/dashboard'
+        }
       } else {
-        console.log('Redirecting to patient dashboard...')
-        // window.location.href = '/patient/dashboard'
+        console.error('Login failed:', data)
+        alert(data.message || 'Login failed. Please check your credentials.')
       }
-    }, 2000)
+    } catch (error) {
+      console.error('Login error:', error)
+      alert('Network error. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handleBackToHome = () => {
@@ -77,11 +89,6 @@ export default function LoginPage() {
 
   const handleSignupRedirect = () => {
     window.location.href = '/auth/signup'
-  }
-
-  // Close dropdown when clicking outside
-  const handleClickOutside = () => {
-    setIsDropdownOpen(false)
   }
 
   // Show loading screen while page loads
@@ -105,14 +112,6 @@ export default function LoginPage() {
           <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-100/30 to-teal-200/30 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-blue-100/30 to-teal-200/30 rounded-full blur-3xl"></div>
         </div>
-
-        {/* Click outside handler */}
-        {isDropdownOpen && (
-          <div 
-            className="fixed inset-0 z-10" 
-            onClick={handleClickOutside}
-          ></div>
-        )}
 
         <div className="relative z-10 w-full max-w-md">
           {/* Back to Home Button */}
@@ -139,106 +138,97 @@ export default function LoginPage() {
               <p className="text-slate-600">Sign in to MigrantCare</p>
             </div>
 
+            {/* Login Method Toggle */}
+            <div className="mb-6">
+              <label className="block text-sm font-semibold text-slate-700 mb-3">
+                Choose Login Method
+              </label>
+              <div className="bg-slate-100 rounded-2xl p-1 flex">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setLoginMethod('email')
+                    setEmail('')
+                    setPhoneNumber('')
+                  }}
+                  className={`flex-1 py-3 px-4 rounded-xl text-sm font-medium transition-all flex items-center justify-center ${
+                    loginMethod === 'email'
+                      ? 'bg-white text-blue-600 shadow-sm border border-blue-200'
+                      : 'text-slate-600 hover:text-slate-800'
+                  }`}
+                >
+                  <Mail className="h-4 w-4 mr-2" />
+                  Email Address
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setLoginMethod('phone')
+                    setEmail('')
+                    setPhoneNumber('')
+                  }}
+                  className={`flex-1 py-3 px-4 rounded-xl text-sm font-medium transition-all flex items-center justify-center ${
+                    loginMethod === 'phone'
+                      ? 'bg-white text-blue-600 shadow-sm border border-blue-200'
+                      : 'text-slate-600 hover:text-slate-800'
+                  }`}
+                >
+                  <Phone className="h-4 w-4 mr-2" />
+                  Phone Number
+                </button>
+              </div>
+            </div>
+
             {/* Login Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* User Type Dropdown */}
-              <div className="space-y-2">
-                <label className="block text-sm font-semibold text-slate-700">
-                  Select User Type
-                </label>
-                <div className="relative z-20">
-                  <button
-                    type="button"
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className={`w-full bg-white border-2 rounded-2xl px-4 py-3 text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
-                      userType 
-                        ? 'border-slate-300 text-slate-900' 
-                        : 'border-slate-200 text-slate-400'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        {userType ? (
-                          <>
-                            {userType === 'admin' ? (
-                              <UserCog className="h-5 w-5 mr-3 text-blue-700" />
-                            ) : (
-                              <User className="h-5 w-5 mr-3 text-emerald-600" />
-                            )}
-                            <div>
-                              <span className="font-medium">
-                                {userType === 'admin' ? 'Admin' : 'Patient'}
-                              </span>
-                              <p className="text-xs text-slate-500">
-                                {userType === 'admin' ? 'Healthcare Administrator' : 'Migrant Worker'}
-                              </p>
-                            </div>
-                          </>
-                        ) : (
-                          <span>Choose your account type</span>
-                        )}
-                      </div>
-                      <ChevronDown 
-                        className={`h-5 w-5 text-slate-400 transition-transform ${
-                          isDropdownOpen ? 'rotate-180' : ''
-                        }`} 
-                      />
+              {/* Email/Phone Field */}
+              {loginMethod === 'email' ? (
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-slate-700">
+                    Email Address
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <Mail className="h-5 w-5 text-slate-400" />
                     </div>
-                  </button>
-
-                  {/* Dropdown Menu */}
-                  {isDropdownOpen && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-2xl shadow-xl z-30 animate-in fade-in-0 zoom-in-95">
-                      {userOptions.map((option) => {
-                        const Icon = option.icon
-                        return (
-                          <button
-                            key={option.value}
-                            type="button"
-                            onClick={() => {
-                              setUserType(option.value as 'admin' | 'patient')
-                              setIsDropdownOpen(false)
-                            }}
-                            className={`w-full px-4 py-3 text-left hover:bg-blue-50 transition-colors first:rounded-t-2xl last:rounded-b-2xl ${
-                              userType === option.value ? 'bg-blue-50' : ''
-                            }`}
-                          >
-                            <div className="flex items-center">
-                              <Icon className={`h-5 w-5 mr-3 ${
-                                option.value === 'admin' ? 'text-blue-700' : 'text-emerald-600'
-                              }`} />
-                              <div>
-                                <div className="font-medium text-slate-900">{option.label}</div>
-                                <div className="text-xs text-slate-500">{option.description}</div>
-                              </div>
-                            </div>
-                          </button>
-                        )
-                      })}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Email Field */}
-              <div className="space-y-2">
-                <label className="block text-sm font-semibold text-slate-700">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <Mail className="h-5 w-5 text-slate-400" />
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                      placeholder="Enter your email address"
+                      required
+                    />
                   </div>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                    placeholder="Enter your email address"
-                    required
-                  />
                 </div>
-              </div>
+              ) : (
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-slate-700">
+                    Phone Number
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <Phone className="h-5 w-5 text-slate-400" />
+                    </div>
+                    <input
+                      type="tel"
+                      value={phoneNumber}
+                      onChange={(e) => {
+                        // Allow only numbers and limit to 10 digits
+                        const value = e.target.value.replace(/\D/g, '').slice(0, 10)
+                        setPhoneNumber(value)
+                      }}
+                      className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                      placeholder="Enter 10-digit mobile number"
+                      maxLength={10}
+                      required
+                    />
+                  </div>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Enter your 10-digit mobile number (without +91)
+                  </p>
+                </div>
+              )}
 
               {/* Password Field */}
               <div className="space-y-2">
@@ -274,7 +264,7 @@ export default function LoginPage() {
               <div className="text-right">
                 <button
                   type="button"
-                  onClick={() => console.log('Navigate to forgot password')}
+                  onClick={() => window.location.href = '/auth/forgot-password'}
                   className="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors"
                 >
                   Forgot your password?
@@ -284,7 +274,7 @@ export default function LoginPage() {
               {/* Submit Button */}
               <button
                 type="submit"
-                disabled={isLoading || !userType || !email || !password}
+                disabled={isLoading || (!email && !phoneNumber) || !password}
                 className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl py-3 font-semibold hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all shadow-md hover:shadow-lg transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center"
               >
                 {isLoading ? (

@@ -10,7 +10,8 @@ import {
   X,
   AlertCircle,
   LogIn,
-  UserPlus
+  UserPlus,
+  Settings
 } from 'lucide-react'
 
 interface NavigationItem {
@@ -115,6 +116,13 @@ export default function Navbar() {
                 Emergency: 108
               </span>
               <button onClick={() => handleLinkClick('/help')} className="cursor-pointer hover:text-blue-600 transition-colors">Help Desk</button>
+              <button 
+                onClick={() => handleLinkClick('/auth/admin/login')} 
+                className="flex items-center cursor-pointer hover:text-blue-600 transition-colors"
+              >
+                <Settings className="h-3 w-3 mr-1.5" />
+                Admin Portal
+              </button>
             </div>
           </div>
         </div>
@@ -286,6 +294,13 @@ export default function Navbar() {
                   <UserPlus className="h-4 w-4 mr-2" />
                   Sign Up
                 </button>
+                <button 
+                  onClick={() => handleLinkClick('/auth/admin/login')}
+                  className="flex items-center text-slate-800 hover:text-blue-600 font-medium py-2 transition-colors w-full rounded-lg px-2 hover:bg-blue-50 text-sm"
+                >
+                  <Settings className="h-4 w-4 mr-2" />
+                  Admin Portal
+                </button>
               </div>
             </div>
           </div>
@@ -294,4 +309,3 @@ export default function Navbar() {
     </header>
   )
 }
-

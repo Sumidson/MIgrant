@@ -1,8 +1,8 @@
 'use client'
 import { useState } from 'react'
 import Navbar from '@/components/navbar'
+
 import { 
-  Shield,
   User,
   Phone,
   Mail,
@@ -14,7 +14,10 @@ import {
   CheckCircle,
   UserPlus,
   Heart,
-  FileText
+  FileText,
+  Lock,
+  Eye,
+  EyeOff
 } from 'lucide-react'
 
 interface FormData {
@@ -22,18 +25,20 @@ interface FormData {
   name: string;
   phoneNumber: string;
   email: string;
-  
+  password: string;
+  confirmPassword: string;
+
   // Step 2: Identity & Address
   aadharNumber: string;
   hometown: string;
   hometownAddress: string;
   keralaAddress: string;
-  
+
   // Step 3: Nominee Details
   nomineeName: string;
   nomineePhone: string;
   nomineeAddress: string;
-  
+
   // Step 4: Health Info
   illnesses: string;
   allergies: string;
@@ -43,10 +48,15 @@ interface FormData {
 export default function SignupPage() {
   const [currentStep, setCurrentStep] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phoneNumber: '',
     email: '',
+    password: '',
+    confirmPassword: '',
     aadharNumber: '',
     hometown: '',
     hometownAddress: '',
@@ -67,8 +77,13 @@ export default function SignupPage() {
 
   const validateStep = (step: number): boolean => {
     switch (step) {
-      case 1:
-        return !!(formData.name.trim() && formData.phoneNumber.trim())
+      case 1: {
+        const minLen = 6 // Changed from 8 to 6 to match backend
+        const basicOk = !!(formData.name.trim() && formData.phoneNumber.trim())
+        const passOk = formData.password.length >= minLen
+        const matchOk = formData.password === formData.confirmPassword
+        return basicOk && passOk && matchOk
+      }
       case 2:
         return !!(formData.aadharNumber.trim() && formData.hometown.trim() && 
                   formData.hometownAddress.trim() && formData.keralaAddress.trim())
@@ -96,18 +111,110 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Debug validation
+    console.log('Current step:', currentStep)
+    console.log('Form data:', formData)
+    console.log('Validation result:', validateStep(currentStep))
+    
     if (!validateStep(currentStep)) {
       alert('Please fill in all required fields.')
       return
     }
 
     setIsLoading(true)
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Signup data:', formData)
+    
+    try {
+      // Prepare data for backend API - only send fields that backend expects
+      const signupData = {
+        firstName: formData.name.split(' ')[0] || formData.name,
+        lastName: formData.name.split(' ').slice(1).join(' ') || '',
+        email: formData.email || undefined, // Only send if provided
+        phone: formData.phoneNumber,
+        password: formData.password,
+        aadharNumber: formData.aadharNumber
+      }
+
+      // Call backend API
+      const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000'}/api/auth/register`
+      console.log('Calling API:', apiUrl)
+      console.log('Request data:', signupData)
+      
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(signupData)
+      })
+
+      let data
+      try {
+        data = await response.json()
+      } catch (jsonError) {
+        console.error('Failed to parse JSON response:', jsonError)
+        data = { message: 'Invalid response from server' }
+      }
+      
+      console.log('Response status:', response.status)
+      console.log('Response data:', data)
+
+      if (response.ok) {
+        // Registration successful
+        console.log('Registration successful:', data)
+        setCurrentStep(5) // Success step
+      } else {
+        // Registration failed
+        console.error('Registration failed:', data)
+        console.error('Response status:', response.status)
+        console.error('Response headers:', response.headers)
+        
+        // Handle different error response formats
+        let errorMessage = 'Registration failed. Please try again.'
+        
+        if (data && typeof data === 'object') {
+          if (data.message) {
+            errorMessage = data.message
+          } else if (data.errors && Array.isArray(data.errors)) {
+            errorMessage = data.errors.map((e: { message: string }) => e.message).join(', ')
+          } else if (data.error) {
+            errorMessage = data.error
+          }
+        } else if (typeof data === 'string') {
+          errorMessage = data
+        }
+        
+        // Add status-specific error messages
+        if (response.status === 400) {
+          errorMessage = 'Invalid data provided. Please check your information and try again.'
+        } else if (response.status === 409) {
+          errorMessage = 'An account with this email or phone number already exists.'
+        } else if (response.status === 500) {
+          errorMessage = 'Server error. Please try again later.'
+        }
+        
+        alert(errorMessage)
+      }
+    } catch (error) {
+      console.error('Registration error:', error)
+      console.error('Error details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined,
+        name: error instanceof Error ? error.name : 'Unknown'
+      })
+      
+      let errorMessage = 'Network error. Please try again.'
+      
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        errorMessage = 'Unable to connect to server. Please check if the backend server is running on http://localhost:5000'
+      } else if (error instanceof Error) {
+        errorMessage = `Network error: ${error.message}`
+      }
+      
+      alert(errorMessage)
+    } finally {
       setIsLoading(false)
-      setCurrentStep(5) // Success step
-    }, 2000)
+    }
   }
 
   const handleBackToHome = () => {
@@ -118,12 +225,16 @@ export default function SignupPage() {
     window.location.href = '/auth/login'
   }
 
-  // Step 1: Basic Information
+  // Derived password helper / errors
+  const passwordTooShort = formData.password.length > 0 && formData.password.length < 6
+  const passwordMismatch = formData.confirmPassword.length > 0 && formData.password !== formData.confirmPassword
+
+  // Step 1: Basic Information + Password
   const renderStep1 = () => (
     <div className="space-y-6">
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold text-slate-900 mb-2">Basic Information</h2>
-        <p className="text-slate-600">Let&apos;s start with your basic details</p>
+        <p className="text-slate-600">Let&apos;s start with account and contact details</p>
       </div>
       <div className="space-y-4">
         <div>
@@ -131,27 +242,116 @@ export default function SignupPage() {
             Full Name <span className="text-red-500">*</span>
           </label>
           <div className="relative">
-            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
-            <input type="text" value={formData.name} onChange={(e) => handleInputChange('name', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter your full name" required />
+            <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+            <input
+              type="text"
+              value={formData.name}
+              onChange={(e) => handleInputChange('name', e.target.value)}
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              placeholder="Enter your full name"
+              required
+              autoComplete="name"
+            />
           </div>
         </div>
+
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
             Phone Number <span className="text-red-500">*</span>
           </label>
           <div className="relative">
-            <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
-            <input type="tel" value={formData.phoneNumber} onChange={(e) => handleInputChange('phoneNumber', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter your phone number" required />
+            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+            <input
+              type="tel"
+              value={formData.phoneNumber}
+              onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              placeholder="Enter your phone number"
+              required
+              autoComplete="tel"
+            />
           </div>
         </div>
+
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
             Email Address <span className="text-slate-400">(Optional)</span>
           </label>
           <div className="relative">
-            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
-            <input type="email" value={formData.email} onChange={(e) => handleInputChange('email', e.target.value)} className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Enter your email (optional)" />
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+            <input
+              type="email"
+              value={formData.email}
+              onChange={(e) => handleInputChange('email', e.target.value)}
+              className="w-full bg-white border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              placeholder="Enter your email (optional)"
+              autoComplete="email"
+            />
           </div>
+        </div>
+
+        {/* Password */}
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-2">
+            Create Password <span className="text-red-500">*</span>
+          </label>
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+            <input
+              type={showPassword ? 'text' : 'password'}
+              value={formData.password}
+              onChange={(e) => handleInputChange('password', e.target.value)}
+              className={`w-full bg-white border-2 rounded-2xl pl-12 pr-12 py-3 focus:outline-none focus:ring-2 transition-all ${
+                passwordTooShort ? 'border-red-300 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500 focus:border-blue-500'
+              }`}
+              placeholder="At least 6 characters"
+              required
+              autoComplete="new-password"
+            />
+            <button
+              type="button"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              onClick={() => setShowPassword(v => !v)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700"
+            >
+              {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+            </button>
+          </div>
+          {passwordTooShort && (
+            <p className="text-xs text-red-600 mt-1">Use at least 6 characters.</p>
+          )}
+        </div>
+
+        {/* Confirm Password */}
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-2">
+            Confirm Password <span className="text-red-500">*</span>
+          </label>
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+            <input
+              type={showConfirmPassword ? 'text' : 'password'}
+              value={formData.confirmPassword}
+              onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
+              className={`w-full bg-white border-2 rounded-2xl pl-12 pr-12 py-3 focus:outline-none focus:ring-2 transition-all ${
+                passwordMismatch ? 'border-red-300 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500 focus:border-blue-500'
+              }`}
+              placeholder="Re-enter your password"
+              required
+              autoComplete="new-password"
+            />
+            <button
+              type="button"
+              aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+              onClick={() => setShowConfirmPassword(v => !v)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700"
+            >
+              {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+            </button>
+          </div>
+          {passwordMismatch && (
+            <p className="text-xs text-red-600 mt-1">Passwords do not match.</p>
+          )}
         </div>
       </div>
     </div>
@@ -436,3 +636,4 @@ export default function SignupPage() {
     </>
   )
 }
+
