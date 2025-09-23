@@ -1,12 +1,12 @@
 'use client'
 import { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User, X, Minimize2, Maximize2 } from 'lucide-react';
-import { useAIChat } from '../hooks/useAIChat';
+import { useAIChat } from '@/ai/hooks/useAIChat';
 
 interface AIChatWidgetProps {
   isOpen: boolean;
   onToggle: () => void;
-  context?: any;
+  context?: Record<string, unknown>;
 }
 
 export default function AIChatWidget({ isOpen, onToggle, context }: AIChatWidgetProps) {
@@ -87,7 +87,7 @@ export default function AIChatWidget({ isOpen, onToggle, context }: AIChatWidget
               {messages.length === 0 && (
                 <div className="text-center text-slate-500 py-8">
                   <Bot className="h-12 w-12 mx-auto mb-3 text-slate-300" />
-                  <p className="text-sm">Hello! I'm your AI health assistant. How can I help you today?</p>
+                  <p className="text-sm">Hello! I&apos;m your AI health assistant. How can I help you today?</p>
                 </div>
               )}
               

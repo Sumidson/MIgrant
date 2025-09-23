@@ -22,7 +22,7 @@ import {
   Plus,
   Star
 } from 'lucide-react'
-import AIChatWidget from '@/ai/components/AIChatWidget'
+import AIChatWidget from '@/components/ai/AIChatWidget'
 
 // TypeScript interfaces (unchanged)
 interface Service {

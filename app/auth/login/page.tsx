@@ -12,7 +12,7 @@ import {
   ArrowRight,
   ArrowLeft
 } from 'lucide-react'
-import AIChatWidget from '@/ai/components/AIChatWidget'
+import AIChatWidget from '@/components/ai/AIChatWidget'
 
 export default function LoginPage() {
   const [loginMethod, setLoginMethod] = useState<'email' | 'phone'>('email')
